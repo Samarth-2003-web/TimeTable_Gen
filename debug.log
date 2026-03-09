@@ -952,3 +952,17 @@ Generation 70: Fitness = 424.00
 Generation 80: Fitness = 424.00
 Generation 90: Fitness = 424.00
 GA Complete - Best Fitness: 424.00
+
+=== GA STARTING ===
+Population: 50, Generations: 100
+Generation 0: Fitness = 416.00
+Generation 10: Fitness = 428.00
+Generation 20: Fitness = 428.00
+Generation 30: Fitness = 428.00
+Generation 40: Fitness = 428.00
+Generation 50: Fitness = 428.00
+Generation 60: Fitness = 428.00
+Generation 70: Fitness = 428.00
+Generation 80: Fitness = 428.00
+Generation 90: Fitness = 428.00
+GA Complete - Best Fitness: 428.00
