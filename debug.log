@@ -1,0 +1,954 @@
+
+================================================================================
+UPLOAD EXCEL CALLED
+================================================================================
+File name: Test_timetable1.xlsx
+Reading Excel file...
+Sheet names: ['Subjects ', 'Rooms', 'Classes', 'Instructions']
+Columns: ['Subject Name', 'Type', 'Hours/Week', 'Teacher', 'For Classes']
+Shape: (20, 5)
+Data:
+               Subject Name    Type  Hours/Week                        Teacher             For Classes
+0   ProgrammIIng wIIth Java  Theory           4         JP - Dr. Jeevan PIInto  MCA II 'A', MCA II 'B'
+1       Database Management  Theory           4           SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+2        MachIIne LearnIIng  Theory           4            SB - Dr. Santhosh B  MCA II 'A', MCA II 'B'
+3         Computer Networks  Theory           3       BB - Mr. BrIIll BrenhIIl  MCA II 'A', MCA II 'B'
+4          Cloud ComputIIng  Theory           3           HN - Dr. Hemalatha.N   MSc BDA II, MSc DS II
+5        BIIo-IInformatIIcs  Theory           4                AM - Ms. Anju M               MSc B II 
+6             Data MIInIIng  Theory           3               GF1 - Ms. RaIIna  MCA II 'A', MCA II 'B'
+7       StatIIstIIcs for DS  Theory           4       SBL - Dr. SrIInIIvas B.L    MSc DS II, MSc ST II
+8     Advanced StatIIstIIcs  Theory           4  SAP - Mr. S. AravIInda Prabhu               MSc ST II
+9      BIIg Data AnalytIIcs  Theory           4           VT - Mrs. VanIItha T  MSc BDA II, MSc BDA II
+10                 Java Lab     Lab           3                        RK / AV  MCA II 'A', MCA II 'B'
+11           BIIo-IInfo Lab     Lab           3               BH - Mr. Bharath               MSc B II 
+12               Python Lab     Lab           3                       GKV / AV  MCA II 'A', MCA II 'B'
+13          IIBM TraIInIIng  Theory           2                   IIBM Faculty   MSc BDA II, MSc DS II
+14         Research Project     Lab           6              MultIIple Faculty     All 2nd Sem Classes
+15          IIBM TraIInIIng  Theory           2                   IIBM Faculty   MSc BDA II, MSc DS II
+16             Soft SkIIlls  Theory           2                       External     All 1st Sem Classes
+17         Research Project     Lab           6              MultIIple Faculty     All 2nd Sem Classes
+18          MobIIle App Lab     Lab           3               BH - Mr. Bharath               MSc B II 
+19        LIInux/System Lab     Lab           3          CH - Mrs. ChrIIstIIna              MSc BDA II
+Row 0: name=ProgrammIIng wIIth Java, type=theory, hours=4, teacher=JP - Dr. Jeevan PIInto, classes=MCA II 'A', MCA II 'B'
+Added subject: ProgrammIIng wIIth Java -> for_classes list: ['MCA II A', 'MCA II B']
+Row 1: name=Database Management, type=theory, hours=4, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: Database Management -> for_classes list: ['MCA II A', 'MCA II B']
+Row 2: name=MachIIne LearnIIng, type=theory, hours=4, teacher=SB - Dr. Santhosh B, classes=MCA II 'A', MCA II 'B'
+Added subject: MachIIne LearnIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 3: name=Computer Networks, type=theory, hours=3, teacher=BB - Mr. BrIIll BrenhIIl, classes=MCA II 'A', MCA II 'B'
+Added subject: Computer Networks -> for_classes list: ['MCA II A', 'MCA II B']
+Row 4: name=Cloud ComputIIng, type=theory, hours=3, teacher=HN - Dr. Hemalatha.N, classes=MSc BDA II, MSc DS II
+Added subject: Cloud ComputIIng -> for_classes list: ['MSc BDA II', 'MSc DS II']
+Row 5: name=BIIo-IInformatIIcs, type=theory, hours=4, teacher=AM - Ms. Anju M, classes=MSc B II
+Added subject: BIIo-IInformatIIcs -> for_classes list: ['MSc B II']
+Row 6: name=Data MIInIIng, type=theory, hours=3, teacher=GF1 - Ms. RaIIna, classes=MCA II 'A', MCA II 'B'
+Added subject: Data MIInIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 7: name=StatIIstIIcs for DS, type=theory, hours=4, teacher=SBL - Dr. SrIInIIvas B.L, classes=MSc DS II, MSc ST II
+Added subject: StatIIstIIcs for DS -> for_classes list: ['MSc DS II', 'MSc ST II']
+Row 8: name=Advanced StatIIstIIcs, type=theory, hours=4, teacher=SAP - Mr. S. AravIInda Prabhu, classes=MSc ST II
+Added subject: Advanced StatIIstIIcs -> for_classes list: ['MSc ST II']
+Row 9: name=BIIg Data AnalytIIcs, type=theory, hours=4, teacher=VT - Mrs. VanIItha T, classes=MSc BDA II, MSc BDA II
+Added subject: BIIg Data AnalytIIcs -> for_classes list: ['MSc BDA II', 'MSc BDA II']
+Row 10: name=Java Lab, type=lab, hours=3, teacher=RK / AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Java Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 11: name=BIIo-IInfo Lab, type=lab, hours=3, teacher=BH - Mr. Bharath, classes=MSc B II
+Added subject: BIIo-IInfo Lab -> for_classes list: ['MSc B II']
+Row 12: name=Python Lab, type=lab, hours=3, teacher=GKV / AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Python Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 13: name=IIBM TraIInIIng, type=theory, hours=2, teacher=IIBM Faculty, classes=MSc BDA II, MSc DS II
+Added subject: IIBM TraIInIIng -> for_classes list: ['MSc BDA II', 'MSc DS II']
+Row 14: name=Research Project, type=lab, hours=6, teacher=MultIIple Faculty, classes=All 2nd Sem Classes
+Added subject: Research Project -> for_classes list: ['All 2nd Sem Classes']
+Row 15: name=IIBM TraIInIIng, type=theory, hours=2, teacher=IIBM Faculty, classes=MSc BDA II, MSc DS II
+Added subject: IIBM TraIInIIng -> for_classes list: ['MSc BDA II', 'MSc DS II']
+Row 16: name=Soft SkIIlls, type=theory, hours=2, teacher=External, classes=All 1st Sem Classes
+Added subject: Soft SkIIlls -> for_classes list: ['All 1st Sem Classes']
+Row 17: name=Research Project, type=lab, hours=6, teacher=MultIIple Faculty, classes=All 2nd Sem Classes
+Added subject: Research Project -> for_classes list: ['All 2nd Sem Classes']
+Row 18: name=MobIIle App Lab, type=lab, hours=3, teacher=BH - Mr. Bharath, classes=MSc B II
+Added subject: MobIIle App Lab -> for_classes list: ['MSc B II']
+Row 19: name=LIInux/System Lab, type=lab, hours=3, teacher=CH - Mrs. ChrIIstIIna, classes=MSc BDA II
+Added subject: LIInux/System Lab -> for_classes list: ['MSc BDA II']
+Total subjects loaded: 20
+
+Classes loaded: ["MCA I 'A'", "MCA I 'B'", "MCA II 'A'", "MCA II 'B'", 'MSc ST I', 'MSc ST II', 'MSC_BDA_1', 'MSC_BDA_3', 'MSc DS I', 'MSc DS II', 'MSc B II']
+
+=== GA STARTING ===
+Population: 100, Generations: 200
+Generation 0: Fitness = 679.00
+
+================================================================================
+UPLOAD EXCEL CALLED
+================================================================================
+File name: Test_timetable1.xlsx
+Reading Excel file...
+Sheet names: ['Subjects ', 'Rooms', 'Classes', 'Instructions']
+Columns: ['Subject Name', 'Type', 'Hours/Week', 'Teacher', 'For Classes']
+Shape: (20, 5)
+Data:
+               Subject Name    Type  Hours/Week                        Teacher             For Classes
+0   ProgrammIIng wIIth Java  Theory           4         JP - Dr. Jeevan PIInto  MCA II 'A', MCA II 'B'
+1       Database Management  Theory           4           SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+2        MachIIne LearnIIng  Theory           4            SB - Dr. Santhosh B  MCA II 'A', MCA II 'B'
+3         Computer Networks  Theory           3       BB - Mr. BrIIll BrenhIIl  MCA II 'A', MCA II 'B'
+4          Cloud ComputIIng  Theory           3           HN - Dr. Hemalatha.N   MSc BDA II, MSc DS II
+5        BIIo-IInformatIIcs  Theory           4                AM - Ms. Anju M               MSc B II 
+6             Data MIInIIng  Theory           3               GF1 - Ms. RaIIna  MCA II 'A', MCA II 'B'
+7       StatIIstIIcs for DS  Theory           4       SBL - Dr. SrIInIIvas B.L    MSc DS II, MSc ST II
+8     Advanced StatIIstIIcs  Theory           4  SAP - Mr. S. AravIInda Prabhu               MSc ST II
+9      BIIg Data AnalytIIcs  Theory           4           VT - Mrs. VanIItha T  MSc BDA II, MSc BDA II
+10                 Java Lab     Lab           3                        RK / AV  MCA II 'A', MCA II 'B'
+11           BIIo-IInfo Lab     Lab           3               BH - Mr. Bharath               MSc B II 
+12               Python Lab     Lab           3                       GKV / AV  MCA II 'A', MCA II 'B'
+13          IIBM TraIInIIng  Theory           2                   IIBM Faculty   MSc BDA II, MSc DS II
+14         Research Project     Lab           6              MultIIple Faculty     All 2nd Sem Classes
+15          IIBM TraIInIIng  Theory           2                   IIBM Faculty   MSc BDA II, MSc DS II
+16             Soft SkIIlls  Theory           2                       External     All 1st Sem Classes
+17         Research Project     Lab           6              MultIIple Faculty     All 2nd Sem Classes
+18          MobIIle App Lab     Lab           3               BH - Mr. Bharath               MSc B II 
+19        LIInux/System Lab     Lab           3          CH - Mrs. ChrIIstIIna              MSc BDA II
+Row 0: name=ProgrammIIng wIIth Java, type=theory, hours=4, teacher=JP - Dr. Jeevan PIInto, classes=MCA II 'A', MCA II 'B'
+Added subject: ProgrammIIng wIIth Java -> for_classes list: ['MCA II A', 'MCA II B']
+Row 1: name=Database Management, type=theory, hours=4, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: Database Management -> for_classes list: ['MCA II A', 'MCA II B']
+Row 2: name=MachIIne LearnIIng, type=theory, hours=4, teacher=SB - Dr. Santhosh B, classes=MCA II 'A', MCA II 'B'
+Added subject: MachIIne LearnIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 3: name=Computer Networks, type=theory, hours=3, teacher=BB - Mr. BrIIll BrenhIIl, classes=MCA II 'A', MCA II 'B'
+Added subject: Computer Networks -> for_classes list: ['MCA II A', 'MCA II B']
+Row 4: name=Cloud ComputIIng, type=theory, hours=3, teacher=HN - Dr. Hemalatha.N, classes=MSc BDA II, MSc DS II
+Added subject: Cloud ComputIIng -> for_classes list: ['MSc BDA II', 'MSc DS II']
+Row 5: name=BIIo-IInformatIIcs, type=theory, hours=4, teacher=AM - Ms. Anju M, classes=MSc B II
+Added subject: BIIo-IInformatIIcs -> for_classes list: ['MSc B II']
+Row 6: name=Data MIInIIng, type=theory, hours=3, teacher=GF1 - Ms. RaIIna, classes=MCA II 'A', MCA II 'B'
+Added subject: Data MIInIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 7: name=StatIIstIIcs for DS, type=theory, hours=4, teacher=SBL - Dr. SrIInIIvas B.L, classes=MSc DS II, MSc ST II
+Added subject: StatIIstIIcs for DS -> for_classes list: ['MSc DS II', 'MSc ST II']
+Row 8: name=Advanced StatIIstIIcs, type=theory, hours=4, teacher=SAP - Mr. S. AravIInda Prabhu, classes=MSc ST II
+Added subject: Advanced StatIIstIIcs -> for_classes list: ['MSc ST II']
+Row 9: name=BIIg Data AnalytIIcs, type=theory, hours=4, teacher=VT - Mrs. VanIItha T, classes=MSc BDA II, MSc BDA II
+Added subject: BIIg Data AnalytIIcs -> for_classes list: ['MSc BDA II', 'MSc BDA II']
+Row 10: name=Java Lab, type=lab, hours=3, teacher=RK / AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Java Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 11: name=BIIo-IInfo Lab, type=lab, hours=3, teacher=BH - Mr. Bharath, classes=MSc B II
+Added subject: BIIo-IInfo Lab -> for_classes list: ['MSc B II']
+Row 12: name=Python Lab, type=lab, hours=3, teacher=GKV / AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Python Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 13: name=IIBM TraIInIIng, type=theory, hours=2, teacher=IIBM Faculty, classes=MSc BDA II, MSc DS II
+Added subject: IIBM TraIInIIng -> for_classes list: ['MSc BDA II', 'MSc DS II']
+Row 14: name=Research Project, type=lab, hours=6, teacher=MultIIple Faculty, classes=All 2nd Sem Classes
+Added subject: Research Project -> for_classes list: ['All 2nd Sem Classes']
+Row 15: name=IIBM TraIInIIng, type=theory, hours=2, teacher=IIBM Faculty, classes=MSc BDA II, MSc DS II
+Added subject: IIBM TraIInIIng -> for_classes list: ['MSc BDA II', 'MSc DS II']
+Row 16: name=Soft SkIIlls, type=theory, hours=2, teacher=External, classes=All 1st Sem Classes
+Added subject: Soft SkIIlls -> for_classes list: ['All 1st Sem Classes']
+Row 17: name=Research Project, type=lab, hours=6, teacher=MultIIple Faculty, classes=All 2nd Sem Classes
+Added subject: Research Project -> for_classes list: ['All 2nd Sem Classes']
+Row 18: name=MobIIle App Lab, type=lab, hours=3, teacher=BH - Mr. Bharath, classes=MSc B II
+Added subject: MobIIle App Lab -> for_classes list: ['MSc B II']
+Row 19: name=LIInux/System Lab, type=lab, hours=3, teacher=CH - Mrs. ChrIIstIIna, classes=MSc BDA II
+Added subject: LIInux/System Lab -> for_classes list: ['MSc BDA II']
+Total subjects loaded: 20
+
+Classes loaded: ["MCA I 'A'", "MCA I 'B'", "MCA II 'A'", "MCA II 'B'", 'MSc ST I', 'MSc ST II', 'MSC_BDA_1', 'MSC_BDA_3', 'MSc DS I', 'MSc DS II', 'MSc B II']
+
+=== GA STARTING ===
+Population: 100, Generations: 200
+Generation 0: Fitness = 687.00
+Generation 10: Fitness = 1081.00
+Generation 20: Fitness = 1274.00
+Generation 30: Fitness = 1507.00
+Generation 40: Fitness = 1579.00
+Generation 50: Fitness = 1641.00
+Generation 60: Fitness = 1672.00
+Generation 70: Fitness = 1678.00
+Generation 80: Fitness = 1682.00
+Generation 90: Fitness = 1685.00
+Generation 100: Fitness = 1688.00
+Generation 110: Fitness = 1690.00
+Generation 120: Fitness = 1692.00
+Generation 130: Fitness = 1694.00
+Generation 140: Fitness = 1697.00
+Generation 150: Fitness = 1697.00
+Generation 160: Fitness = 1699.00
+Generation 170: Fitness = 1700.00
+Generation 180: Fitness = 1701.00
+Generation 190: Fitness = 1701.00
+GA Complete - Best Fitness: 1702.00
+
+================================================================================
+UPLOAD EXCEL CALLED
+================================================================================
+File name: Test_timetable1.xlsx
+Reading Excel file...
+Sheet names: ['Subjects ', 'Rooms', 'Classes', 'Instructions']
+Columns: ['Subject Name', 'Type', 'Hours/Week', 'Teacher', 'For Classes']
+Shape: (20, 5)
+Data:
+               Subject Name    Type  Hours/Week                        Teacher             For Classes
+0   ProgrammIIng wIIth Java  Theory           4         JP - Dr. Jeevan PIInto  MCA II 'A', MCA II 'B'
+1       Database Management  Theory           4           SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+2        MachIIne LearnIIng  Theory           4            SB - Dr. Santhosh B  MCA II 'A', MCA II 'B'
+3         Computer Networks  Theory           3       BB - Mr. BrIIll BrenhIIl  MCA II 'A', MCA II 'B'
+4          Cloud ComputIIng  Theory           3           HN - Dr. Hemalatha.N   MSc BDA II, MSc DS II
+5        BIIo-IInformatIIcs  Theory           4                AM - Ms. Anju M               MSc B II 
+6             Data MIInIIng  Theory           3               GF1 - Ms. RaIIna  MCA II 'A', MCA II 'B'
+7       StatIIstIIcs for DS  Theory           4       SBL - Dr. SrIInIIvas B.L    MSc DS II, MSc ST II
+8     Advanced StatIIstIIcs  Theory           4  SAP - Mr. S. AravIInda Prabhu               MSc ST II
+9      BIIg Data AnalytIIcs  Theory           4           VT - Mrs. VanIItha T  MSc BDA II, MSc BDA II
+10                 Java Lab     Lab           3                        RK / AV  MCA II 'A', MCA II 'B'
+11           BIIo-IInfo Lab     Lab           3               BH - Mr. Bharath               MSc B II 
+12               Python Lab     Lab           3                       GKV / AV  MCA II 'A', MCA II 'B'
+13          IIBM TraIInIIng  Theory           2                   IIBM Faculty   MSc BDA II, MSc DS II
+14         Research Project     Lab           6              MultIIple Faculty     All 2nd Sem Classes
+15          IIBM TraIInIIng  Theory           2                   IIBM Faculty   MSc BDA II, MSc DS II
+16             Soft SkIIlls  Theory           2                       External     All 1st Sem Classes
+17         Research Project     Lab           6              MultIIple Faculty     All 2nd Sem Classes
+18          MobIIle App Lab     Lab           3               BH - Mr. Bharath               MSc B II 
+19        LIInux/System Lab     Lab           3          CH - Mrs. ChrIIstIIna              MSc BDA II
+Row 0: name=ProgrammIIng wIIth Java, type=theory, hours=4, teacher=JP - Dr. Jeevan PIInto, classes=MCA II 'A', MCA II 'B'
+Added subject: ProgrammIIng wIIth Java -> for_classes list: ['MCA II A', 'MCA II B']
+Row 1: name=Database Management, type=theory, hours=4, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: Database Management -> for_classes list: ['MCA II A', 'MCA II B']
+Row 2: name=MachIIne LearnIIng, type=theory, hours=4, teacher=SB - Dr. Santhosh B, classes=MCA II 'A', MCA II 'B'
+Added subject: MachIIne LearnIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 3: name=Computer Networks, type=theory, hours=3, teacher=BB - Mr. BrIIll BrenhIIl, classes=MCA II 'A', MCA II 'B'
+Added subject: Computer Networks -> for_classes list: ['MCA II A', 'MCA II B']
+Row 4: name=Cloud ComputIIng, type=theory, hours=3, teacher=HN - Dr. Hemalatha.N, classes=MSc BDA II, MSc DS II
+Added subject: Cloud ComputIIng -> for_classes list: ['MSc BDA II', 'MSc DS II']
+Row 5: name=BIIo-IInformatIIcs, type=theory, hours=4, teacher=AM - Ms. Anju M, classes=MSc B II
+Added subject: BIIo-IInformatIIcs -> for_classes list: ['MSc B II']
+Row 6: name=Data MIInIIng, type=theory, hours=3, teacher=GF1 - Ms. RaIIna, classes=MCA II 'A', MCA II 'B'
+Added subject: Data MIInIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 7: name=StatIIstIIcs for DS, type=theory, hours=4, teacher=SBL - Dr. SrIInIIvas B.L, classes=MSc DS II, MSc ST II
+Added subject: StatIIstIIcs for DS -> for_classes list: ['MSc DS II', 'MSc ST II']
+Row 8: name=Advanced StatIIstIIcs, type=theory, hours=4, teacher=SAP - Mr. S. AravIInda Prabhu, classes=MSc ST II
+Added subject: Advanced StatIIstIIcs -> for_classes list: ['MSc ST II']
+Row 9: name=BIIg Data AnalytIIcs, type=theory, hours=4, teacher=VT - Mrs. VanIItha T, classes=MSc BDA II, MSc BDA II
+Added subject: BIIg Data AnalytIIcs -> for_classes list: ['MSc BDA II', 'MSc BDA II']
+Row 10: name=Java Lab, type=lab, hours=3, teacher=RK / AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Java Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 11: name=BIIo-IInfo Lab, type=lab, hours=3, teacher=BH - Mr. Bharath, classes=MSc B II
+Added subject: BIIo-IInfo Lab -> for_classes list: ['MSc B II']
+Row 12: name=Python Lab, type=lab, hours=3, teacher=GKV / AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Python Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 13: name=IIBM TraIInIIng, type=theory, hours=2, teacher=IIBM Faculty, classes=MSc BDA II, MSc DS II
+Added subject: IIBM TraIInIIng -> for_classes list: ['MSc BDA II', 'MSc DS II']
+Row 14: name=Research Project, type=lab, hours=6, teacher=MultIIple Faculty, classes=All 2nd Sem Classes
+Added subject: Research Project -> for_classes list: ['All 2nd Sem Classes']
+Row 15: name=IIBM TraIInIIng, type=theory, hours=2, teacher=IIBM Faculty, classes=MSc BDA II, MSc DS II
+Added subject: IIBM TraIInIIng -> for_classes list: ['MSc BDA II', 'MSc DS II']
+Row 16: name=Soft SkIIlls, type=theory, hours=2, teacher=External, classes=All 1st Sem Classes
+Added subject: Soft SkIIlls -> for_classes list: ['All 1st Sem Classes']
+Row 17: name=Research Project, type=lab, hours=6, teacher=MultIIple Faculty, classes=All 2nd Sem Classes
+Added subject: Research Project -> for_classes list: ['All 2nd Sem Classes']
+Row 18: name=MobIIle App Lab, type=lab, hours=3, teacher=BH - Mr. Bharath, classes=MSc B II
+Added subject: MobIIle App Lab -> for_classes list: ['MSc B II']
+Row 19: name=LIInux/System Lab, type=lab, hours=3, teacher=CH - Mrs. ChrIIstIIna, classes=MSc BDA II
+Added subject: LIInux/System Lab -> for_classes list: ['MSc BDA II']
+Total subjects loaded: 20
+
+Classes loaded: ["MCA I 'A'", "MCA I 'B'", "MCA II 'A'", "MCA II 'B'", 'MSc ST I', 'MSc ST II', 'MSC_BDA_1', 'MSC_BDA_3', 'MSc DS I', 'MSc DS II', 'MSc B II']
+
+================================================================================
+UPLOAD EXCEL CALLED
+================================================================================
+File name: MCA.xlsx
+Reading Excel file...
+Sheet names: ['Subjects', 'Rooms', 'Classes']
+Columns: ['Subject Name', 'Type', 'Hours/Week', 'Teacher', 'For Classes']
+Shape: (10, 5)
+Data:
+              Subject Name       Type  Hours/Week                   Teacher             For Classes
+0  ProgrammIIng wIIth Java     Theory           4    JP - Dr. Jeevan PIInto  MCA II 'A', MCA II 'B'
+1      Database Management     Theory           4      SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+2       MachIIne LearnIIng     Theory           4       SB - Dr. Santhosh B  MCA II 'A', MCA II 'B'
+3        Computer Networks     Theory           4  BB - Mr. BrIIll BrenhIIl  MCA II 'A', MCA II 'B'
+4            Data MIInIIng     Theory           4          GF1 - Ms. RaIIna  MCA II 'A', MCA II 'B'
+5                 Java Lab        Lab           2                   RK / AV  MCA II 'A', MCA II 'B'
+6               Python Lab        Lab           2                        AV  MCA II 'A', MCA II 'B'
+7         Research Project        Lab           4                       GKV  MCA II 'A', MCA II 'B'
+8                Softskill   Theory             2                 Placement  MCA II 'A', MCA II 'B'
+9                     DBMS        Lab           2      SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+Row 0: name=ProgrammIIng wIIth Java, type=theory, hours=4, teacher=JP - Dr. Jeevan PIInto, classes=MCA II 'A', MCA II 'B'
+Added subject: ProgrammIIng wIIth Java -> for_classes list: ['MCA II A', 'MCA II B']
+Row 1: name=Database Management, type=theory, hours=4, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: Database Management -> for_classes list: ['MCA II A', 'MCA II B']
+Row 2: name=MachIIne LearnIIng, type=theory, hours=4, teacher=SB - Dr. Santhosh B, classes=MCA II 'A', MCA II 'B'
+Added subject: MachIIne LearnIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 3: name=Computer Networks, type=theory, hours=4, teacher=BB - Mr. BrIIll BrenhIIl, classes=MCA II 'A', MCA II 'B'
+Added subject: Computer Networks -> for_classes list: ['MCA II A', 'MCA II B']
+Row 4: name=Data MIInIIng, type=theory, hours=4, teacher=GF1 - Ms. RaIIna, classes=MCA II 'A', MCA II 'B'
+Added subject: Data MIInIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 5: name=Java Lab, type=lab, hours=2, teacher=RK / AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Java Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 6: name=Python Lab, type=lab, hours=2, teacher=AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Python Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 7: name=Research Project, type=lab, hours=4, teacher=GKV, classes=MCA II 'A', MCA II 'B'
+Added subject: Research Project -> for_classes list: ['MCA II A', 'MCA II B']
+Row 8: name=Softskill, type=theory, hours=2, teacher=Placement, classes=MCA II 'A', MCA II 'B'
+Added subject: Softskill -> for_classes list: ['MCA II A', 'MCA II B']
+Row 9: name=DBMS, type=lab, hours=2, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: DBMS -> for_classes list: ['MCA II A', 'MCA II B']
+Total subjects loaded: 10
+
+Classes loaded: ["MCA II 'A'", "MCA II 'B'"]
+
+=== GA STARTING ===
+Population: 100, Generations: 200
+Generation 0: Fitness = 504.00
+Generation 10: Fitness = 535.00
+Generation 20: Fitness = 536.00
+Generation 30: Fitness = 536.00
+Generation 40: Fitness = 536.00
+Generation 50: Fitness = 536.00
+Generation 60: Fitness = 536.00
+Generation 70: Fitness = 536.00
+Generation 80: Fitness = 536.00
+Generation 90: Fitness = 536.00
+Generation 100: Fitness = 536.00
+Generation 110: Fitness = 536.00
+Generation 120: Fitness = 536.00
+Generation 130: Fitness = 536.00
+Generation 140: Fitness = 536.00
+Generation 150: Fitness = 536.00
+Generation 160: Fitness = 536.00
+Generation 170: Fitness = 536.00
+Generation 180: Fitness = 536.00
+Generation 190: Fitness = 536.00
+GA Complete - Best Fitness: 536.00
+
+=== GA STARTING ===
+Population: 100, Generations: 200
+Generation 0: Fitness = 542.00
+Generation 10: Fitness = 568.00
+Generation 20: Fitness = 568.00
+Generation 30: Fitness = 568.00
+Generation 40: Fitness = 568.00
+Generation 50: Fitness = 568.00
+Generation 60: Fitness = 568.00
+Generation 70: Fitness = 568.00
+Generation 80: Fitness = 568.00
+Generation 90: Fitness = 568.00
+Generation 100: Fitness = 568.00
+Generation 110: Fitness = 568.00
+Generation 120: Fitness = 568.00
+Generation 130: Fitness = 568.00
+Generation 140: Fitness = 568.00
+Generation 150: Fitness = 568.00
+Generation 160: Fitness = 568.00
+Generation 170: Fitness = 568.00
+Generation 180: Fitness = 568.00
+Generation 190: Fitness = 568.00
+GA Complete - Best Fitness: 568.00
+
+=== GA STARTING ===
+Population: 100, Generations: 200
+Generation 0: Fitness = 535.00
+Generation 10: Fitness = 544.00
+Generation 20: Fitness = 544.00
+Generation 30: Fitness = 544.00
+Generation 40: Fitness = 544.00
+Generation 50: Fitness = 544.00
+Generation 60: Fitness = 544.00
+Generation 70: Fitness = 544.00
+Generation 80: Fitness = 544.00
+Generation 90: Fitness = 544.00
+Generation 100: Fitness = 544.00
+Generation 110: Fitness = 544.00
+Generation 120: Fitness = 544.00
+Generation 130: Fitness = 544.00
+Generation 140: Fitness = 544.00
+Generation 150: Fitness = 544.00
+Generation 160: Fitness = 544.00
+Generation 170: Fitness = 544.00
+Generation 180: Fitness = 544.00
+Generation 190: Fitness = 544.00
+GA Complete - Best Fitness: 544.00
+
+================================================================================
+UPLOAD EXCEL CALLED
+================================================================================
+File name: MCA.xlsx
+Reading Excel file...
+Sheet names: ['Subjects', 'Rooms', 'Classes']
+Columns: ['Subject Name', 'Type', 'Hours/Week', 'Teacher', 'For Classes']
+Shape: (10, 5)
+Data:
+              Subject Name       Type  Hours/Week                   Teacher             For Classes
+0  ProgrammIIng wIIth Java     Theory           4    JP - Dr. Jeevan PIInto  MCA II 'A', MCA II 'B'
+1      Database Management     Theory           4      SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+2       MachIIne LearnIIng     Theory           4       SB - Dr. Santhosh B  MCA II 'A', MCA II 'B'
+3        Computer Networks     Theory           4  BB - Mr. BrIIll BrenhIIl  MCA II 'A', MCA II 'B'
+4            Data MIInIIng     Theory           4          GF1 - Ms. RaIIna  MCA II 'A', MCA II 'B'
+5                 Java Lab        Lab           2                   RK / AV  MCA II 'A', MCA II 'B'
+6               Python Lab        Lab           2                        AV  MCA II 'A', MCA II 'B'
+7         Research Project        Lab           4                       GKV  MCA II 'A', MCA II 'B'
+8                Softskill   Theory             2                 Placement  MCA II 'A', MCA II 'B'
+9                     DBMS        Lab           2      SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+Row 0: name=ProgrammIIng wIIth Java, type=theory, hours=4, teacher=JP - Dr. Jeevan PIInto, classes=MCA II 'A', MCA II 'B'
+Added subject: ProgrammIIng wIIth Java -> for_classes list: ['MCA II A', 'MCA II B']
+Row 1: name=Database Management, type=theory, hours=4, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: Database Management -> for_classes list: ['MCA II A', 'MCA II B']
+Row 2: name=MachIIne LearnIIng, type=theory, hours=4, teacher=SB - Dr. Santhosh B, classes=MCA II 'A', MCA II 'B'
+Added subject: MachIIne LearnIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 3: name=Computer Networks, type=theory, hours=4, teacher=BB - Mr. BrIIll BrenhIIl, classes=MCA II 'A', MCA II 'B'
+Added subject: Computer Networks -> for_classes list: ['MCA II A', 'MCA II B']
+Row 4: name=Data MIInIIng, type=theory, hours=4, teacher=GF1 - Ms. RaIIna, classes=MCA II 'A', MCA II 'B'
+Added subject: Data MIInIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 5: name=Java Lab, type=lab, hours=2, teacher=RK / AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Java Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 6: name=Python Lab, type=lab, hours=2, teacher=AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Python Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 7: name=Research Project, type=lab, hours=4, teacher=GKV, classes=MCA II 'A', MCA II 'B'
+Added subject: Research Project -> for_classes list: ['MCA II A', 'MCA II B']
+Row 8: name=Softskill, type=theory, hours=2, teacher=Placement, classes=MCA II 'A', MCA II 'B'
+Added subject: Softskill -> for_classes list: ['MCA II A', 'MCA II B']
+Row 9: name=DBMS, type=lab, hours=2, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: DBMS -> for_classes list: ['MCA II A', 'MCA II B']
+Total subjects loaded: 10
+
+Classes loaded: ["MCA II 'A'", "MCA II 'B'"]
+
+=== GA STARTING ===
+Population: 100, Generations: 200
+Generation 0: Fitness = 497.00
+Generation 10: Fitness = 556.00
+Generation 20: Fitness = 607.00
+Generation 30: Fitness = 607.00
+Generation 40: Fitness = 610.00
+Generation 50: Fitness = 610.00
+Generation 60: Fitness = 610.00
+Generation 70: Fitness = 610.00
+Generation 80: Fitness = 610.00
+Generation 90: Fitness = 610.00
+Generation 100: Fitness = 610.00
+Generation 110: Fitness = 610.00
+Generation 120: Fitness = 610.00
+Generation 130: Fitness = 610.00
+Generation 140: Fitness = 610.00
+Generation 150: Fitness = 610.00
+Generation 160: Fitness = 610.00
+Generation 170: Fitness = 610.00
+Generation 180: Fitness = 610.00
+Generation 190: Fitness = 610.00
+GA Complete - Best Fitness: 610.00
+
+=== GA STARTING ===
+Population: 100, Generations: 200
+Generation 0: Fitness = 456.00
+Generation 10: Fitness = 466.00
+Generation 20: Fitness = 538.00
+Generation 30: Fitness = 539.00
+Generation 40: Fitness = 540.00
+Generation 50: Fitness = 580.00
+Generation 60: Fitness = 580.00
+Generation 70: Fitness = 580.00
+Generation 80: Fitness = 580.00
+Generation 90: Fitness = 580.00
+Generation 100: Fitness = 580.00
+Generation 110: Fitness = 580.00
+Generation 120: Fitness = 580.00
+Generation 130: Fitness = 580.00
+Generation 140: Fitness = 580.00
+Generation 150: Fitness = 580.00
+Generation 160: Fitness = 580.00
+Generation 170: Fitness = 580.00
+Generation 180: Fitness = 580.00
+Generation 190: Fitness = 580.00
+GA Complete - Best Fitness: 580.00
+
+================================================================================
+UPLOAD EXCEL CALLED
+================================================================================
+File name: MCA.xlsx
+Reading Excel file...
+Sheet names: ['Subjects', 'Rooms', 'Classes']
+Columns: ['Subject Name', 'Type', 'Hours/Week', 'Teacher', 'For Classes']
+Shape: (10, 5)
+Data:
+              Subject Name       Type  Hours/Week                   Teacher             For Classes
+0  ProgrammIIng wIIth Java     Theory           4    JP - Dr. Jeevan PIInto  MCA II 'A', MCA II 'B'
+1      Database Management     Theory           4      SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+2       MachIIne LearnIIng     Theory           4       SB - Dr. Santhosh B  MCA II 'A', MCA II 'B'
+3        Computer Networks     Theory           4  BB - Mr. BrIIll BrenhIIl  MCA II 'A', MCA II 'B'
+4            Data MIInIIng     Theory           4          GF1 - Ms. RaIIna  MCA II 'A', MCA II 'B'
+5                 Java Lab        Lab           2                   RK / AV  MCA II 'A', MCA II 'B'
+6               Python Lab        Lab           2                        AV  MCA II 'A', MCA II 'B'
+7         Research Project        Lab           4                       GKV  MCA II 'A', MCA II 'B'
+8                Softskill   Theory             2                 Placement  MCA II 'A', MCA II 'B'
+9                     DBMS        Lab           2      SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+Row 0: name=ProgrammIIng wIIth Java, type=theory, hours=4, teacher=JP - Dr. Jeevan PIInto, classes=MCA II 'A', MCA II 'B'
+Added subject: ProgrammIIng wIIth Java -> for_classes list: ['MCA II A', 'MCA II B']
+Row 1: name=Database Management, type=theory, hours=4, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: Database Management -> for_classes list: ['MCA II A', 'MCA II B']
+Row 2: name=MachIIne LearnIIng, type=theory, hours=4, teacher=SB - Dr. Santhosh B, classes=MCA II 'A', MCA II 'B'
+Added subject: MachIIne LearnIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 3: name=Computer Networks, type=theory, hours=4, teacher=BB - Mr. BrIIll BrenhIIl, classes=MCA II 'A', MCA II 'B'
+Added subject: Computer Networks -> for_classes list: ['MCA II A', 'MCA II B']
+Row 4: name=Data MIInIIng, type=theory, hours=4, teacher=GF1 - Ms. RaIIna, classes=MCA II 'A', MCA II 'B'
+Added subject: Data MIInIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 5: name=Java Lab, type=lab, hours=2, teacher=RK / AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Java Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 6: name=Python Lab, type=lab, hours=2, teacher=AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Python Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 7: name=Research Project, type=lab, hours=4, teacher=GKV, classes=MCA II 'A', MCA II 'B'
+Added subject: Research Project -> for_classes list: ['MCA II A', 'MCA II B']
+Row 8: name=Softskill, type=theory, hours=2, teacher=Placement, classes=MCA II 'A', MCA II 'B'
+Added subject: Softskill -> for_classes list: ['MCA II A', 'MCA II B']
+Row 9: name=DBMS, type=lab, hours=2, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: DBMS -> for_classes list: ['MCA II A', 'MCA II B']
+Total subjects loaded: 10
+
+Classes loaded: ["MCA II 'A'", "MCA II 'B'"]
+
+=== GA STARTING ===
+Population: 100, Generations: 200
+Generation 0: Fitness = 595.00
+Generation 10: Fitness = 665.00
+Generation 20: Fitness = 680.00
+Generation 30: Fitness = 720.00
+Generation 40: Fitness = 720.00
+Generation 50: Fitness = 720.00
+Generation 60: Fitness = 720.00
+Generation 70: Fitness = 720.00
+Generation 80: Fitness = 760.00
+Generation 90: Fitness = 760.00
+Generation 100: Fitness = 760.00
+Generation 110: Fitness = 760.00
+Generation 120: Fitness = 760.00
+Generation 130: Fitness = 760.00
+Generation 140: Fitness = 760.00
+Generation 150: Fitness = 760.00
+Generation 160: Fitness = 760.00
+Generation 170: Fitness = 760.00
+Generation 180: Fitness = 760.00
+Generation 190: Fitness = 760.00
+GA Complete - Best Fitness: 760.00
+
+================================================================================
+UPLOAD EXCEL CALLED
+================================================================================
+File name: MCA.xlsx
+Reading Excel file...
+Sheet names: ['Subjects', 'Rooms', 'Classes']
+Columns: ['Subject Name', 'Type', 'Hours/Week', 'Teacher', 'For Classes']
+Shape: (10, 5)
+Data:
+              Subject Name       Type  Hours/Week                   Teacher             For Classes
+0  ProgrammIIng wIIth Java     Theory           4    JP - Dr. Jeevan PIInto  MCA II 'A', MCA II 'B'
+1      Database Management     Theory           4      SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+2       MachIIne LearnIIng     Theory           4       SB - Dr. Santhosh B  MCA II 'A', MCA II 'B'
+3        Computer Networks     Theory           4  BB - Mr. BrIIll BrenhIIl  MCA II 'A', MCA II 'B'
+4            Data MIInIIng     Theory           4          GF1 - Ms. RaIIna  MCA II 'A', MCA II 'B'
+5                 Java Lab        Lab           2                   RK / AV  MCA II 'A', MCA II 'B'
+6               Python Lab        Lab           2                        AV  MCA II 'A', MCA II 'B'
+7         Research Project        Lab           4                       GKV  MCA II 'A', MCA II 'B'
+8                Softskill   Theory             2                 Placement  MCA II 'A', MCA II 'B'
+9                     DBMS        Lab           2      SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+Row 0: name=ProgrammIIng wIIth Java, type=theory, hours=4, teacher=JP - Dr. Jeevan PIInto, classes=MCA II 'A', MCA II 'B'
+Added subject: ProgrammIIng wIIth Java -> for_classes list: ['MCA II A', 'MCA II B']
+Row 1: name=Database Management, type=theory, hours=4, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: Database Management -> for_classes list: ['MCA II A', 'MCA II B']
+Row 2: name=MachIIne LearnIIng, type=theory, hours=4, teacher=SB - Dr. Santhosh B, classes=MCA II 'A', MCA II 'B'
+Added subject: MachIIne LearnIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 3: name=Computer Networks, type=theory, hours=4, teacher=BB - Mr. BrIIll BrenhIIl, classes=MCA II 'A', MCA II 'B'
+Added subject: Computer Networks -> for_classes list: ['MCA II A', 'MCA II B']
+Row 4: name=Data MIInIIng, type=theory, hours=4, teacher=GF1 - Ms. RaIIna, classes=MCA II 'A', MCA II 'B'
+Added subject: Data MIInIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 5: name=Java Lab, type=lab, hours=2, teacher=RK / AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Java Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 6: name=Python Lab, type=lab, hours=2, teacher=AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Python Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 7: name=Research Project, type=lab, hours=4, teacher=GKV, classes=MCA II 'A', MCA II 'B'
+Added subject: Research Project -> for_classes list: ['MCA II A', 'MCA II B']
+Row 8: name=Softskill, type=theory, hours=2, teacher=Placement, classes=MCA II 'A', MCA II 'B'
+Added subject: Softskill -> for_classes list: ['MCA II A', 'MCA II B']
+Row 9: name=DBMS, type=lab, hours=2, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: DBMS -> for_classes list: ['MCA II A', 'MCA II B']
+Total subjects loaded: 10
+
+Classes loaded: ["MCA II 'A'", "MCA II 'B'"]
+
+=== GA STARTING ===
+Population: 100, Generations: 200
+Generation 0: Fitness = 650.00
+Generation 10: Fitness = 690.00
+Generation 20: Fitness = 690.00
+Generation 30: Fitness = 690.00
+Generation 40: Fitness = 690.00
+Generation 50: Fitness = 690.00
+Generation 60: Fitness = 690.00
+Generation 70: Fitness = 690.00
+Generation 80: Fitness = 690.00
+Generation 90: Fitness = 690.00
+Generation 100: Fitness = 690.00
+Generation 110: Fitness = 690.00
+Generation 120: Fitness = 690.00
+Generation 130: Fitness = 730.00
+Generation 140: Fitness = 730.00
+Generation 150: Fitness = 730.00
+Generation 160: Fitness = 730.00
+Generation 170: Fitness = 730.00
+Generation 180: Fitness = 730.00
+Generation 190: Fitness = 730.00
+GA Complete - Best Fitness: 730.00
+
+================================================================================
+UPLOAD EXCEL CALLED
+================================================================================
+File name: MCA.xlsx
+Reading Excel file...
+Sheet names: ['Subjects', 'Rooms', 'Classes']
+Columns: ['Subject Name', 'Type', 'Hours/Week', 'Teacher', 'For Classes']
+Shape: (10, 5)
+Data:
+              Subject Name       Type  Hours/Week                   Teacher             For Classes
+0  ProgrammIIng wIIth Java     Theory           4    JP - Dr. Jeevan PIInto  MCA II 'A', MCA II 'B'
+1      Database Management     Theory           4      SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+2       MachIIne LearnIIng     Theory           4       SB - Dr. Santhosh B  MCA II 'A', MCA II 'B'
+3        Computer Networks     Theory           4  BB - Mr. BrIIll BrenhIIl  MCA II 'A', MCA II 'B'
+4            Data MIInIIng     Theory           4          GF1 - Ms. RaIIna  MCA II 'A', MCA II 'B'
+5                 Java Lab        Lab           2                   RK / AV  MCA II 'A', MCA II 'B'
+6               Python Lab        Lab           2                        AV  MCA II 'A', MCA II 'B'
+7         Research Project        Lab           4                       GKV  MCA II 'A', MCA II 'B'
+8                Softskill   Theory             2                 Placement  MCA II 'A', MCA II 'B'
+9                     DBMS        Lab           2      SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+Row 0: name=ProgrammIIng wIIth Java, type=theory, hours=4, teacher=JP - Dr. Jeevan PIInto, classes=MCA II 'A', MCA II 'B'
+Added subject: ProgrammIIng wIIth Java -> for_classes list: ['MCA II A', 'MCA II B']
+Row 1: name=Database Management, type=theory, hours=4, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: Database Management -> for_classes list: ['MCA II A', 'MCA II B']
+Row 2: name=MachIIne LearnIIng, type=theory, hours=4, teacher=SB - Dr. Santhosh B, classes=MCA II 'A', MCA II 'B'
+Added subject: MachIIne LearnIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 3: name=Computer Networks, type=theory, hours=4, teacher=BB - Mr. BrIIll BrenhIIl, classes=MCA II 'A', MCA II 'B'
+Added subject: Computer Networks -> for_classes list: ['MCA II A', 'MCA II B']
+Row 4: name=Data MIInIIng, type=theory, hours=4, teacher=GF1 - Ms. RaIIna, classes=MCA II 'A', MCA II 'B'
+Added subject: Data MIInIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 5: name=Java Lab, type=lab, hours=2, teacher=RK / AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Java Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 6: name=Python Lab, type=lab, hours=2, teacher=AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Python Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 7: name=Research Project, type=lab, hours=4, teacher=GKV, classes=MCA II 'A', MCA II 'B'
+Added subject: Research Project -> for_classes list: ['MCA II A', 'MCA II B']
+Row 8: name=Softskill, type=theory, hours=2, teacher=Placement, classes=MCA II 'A', MCA II 'B'
+Added subject: Softskill -> for_classes list: ['MCA II A', 'MCA II B']
+Row 9: name=DBMS, type=lab, hours=2, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: DBMS -> for_classes list: ['MCA II A', 'MCA II B']
+Total subjects loaded: 10
+
+Classes loaded: ["MCA II 'A'", "MCA II 'B'"]
+
+================================================================================
+UPLOAD EXCEL CALLED
+================================================================================
+File name: MCA.xlsx
+Reading Excel file...
+Sheet names: ['Subjects', 'Rooms', 'Classes']
+Columns: ['Subject Name', 'Type', 'Hours/Week', 'Teacher', 'For Classes']
+Shape: (10, 5)
+Data:
+              Subject Name       Type  Hours/Week                   Teacher             For Classes
+0  ProgrammIIng wIIth Java     Theory           4    JP - Dr. Jeevan PIInto  MCA II 'A', MCA II 'B'
+1      Database Management     Theory           4      SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+2       MachIIne LearnIIng     Theory           4       SB - Dr. Santhosh B  MCA II 'A', MCA II 'B'
+3        Computer Networks     Theory           4  BB - Mr. BrIIll BrenhIIl  MCA II 'A', MCA II 'B'
+4            Data MIInIIng     Theory           4          GF1 - Ms. RaIIna  MCA II 'A', MCA II 'B'
+5                 Java Lab        Lab           2                   RK / AV  MCA II 'A', MCA II 'B'
+6               Python Lab        Lab           2                        AV  MCA II 'A', MCA II 'B'
+7         Research Project        Lab           4                       GKV  MCA II 'A', MCA II 'B'
+8                Softskill   Theory             2                 Placement  MCA II 'A', MCA II 'B'
+9                     DBMS        Lab           2      SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+Row 0: name=ProgrammIIng wIIth Java, type=theory, hours=4, teacher=JP - Dr. Jeevan PIInto, classes=MCA II 'A', MCA II 'B'
+Added subject: ProgrammIIng wIIth Java -> for_classes list: ['MCA II A', 'MCA II B']
+Row 1: name=Database Management, type=theory, hours=4, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: Database Management -> for_classes list: ['MCA II A', 'MCA II B']
+Row 2: name=MachIIne LearnIIng, type=theory, hours=4, teacher=SB - Dr. Santhosh B, classes=MCA II 'A', MCA II 'B'
+Added subject: MachIIne LearnIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 3: name=Computer Networks, type=theory, hours=4, teacher=BB - Mr. BrIIll BrenhIIl, classes=MCA II 'A', MCA II 'B'
+Added subject: Computer Networks -> for_classes list: ['MCA II A', 'MCA II B']
+Row 4: name=Data MIInIIng, type=theory, hours=4, teacher=GF1 - Ms. RaIIna, classes=MCA II 'A', MCA II 'B'
+Added subject: Data MIInIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 5: name=Java Lab, type=lab, hours=2, teacher=RK / AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Java Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 6: name=Python Lab, type=lab, hours=2, teacher=AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Python Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 7: name=Research Project, type=lab, hours=4, teacher=GKV, classes=MCA II 'A', MCA II 'B'
+Added subject: Research Project -> for_classes list: ['MCA II A', 'MCA II B']
+Row 8: name=Softskill, type=theory, hours=2, teacher=Placement, classes=MCA II 'A', MCA II 'B'
+Added subject: Softskill -> for_classes list: ['MCA II A', 'MCA II B']
+Row 9: name=DBMS, type=lab, hours=2, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: DBMS -> for_classes list: ['MCA II A', 'MCA II B']
+Total subjects loaded: 10
+
+Classes loaded: ["MCA II 'A'", "MCA II 'B'"]
+
+================================================================================
+UPLOAD EXCEL CALLED
+================================================================================
+File name: MCA.xlsx
+Reading Excel file...
+Sheet names: ['Subjects', 'Rooms', 'Classes']
+Columns: ['Subject Name', 'Type', 'Hours/Week', 'Teacher', 'For Classes']
+Shape: (10, 5)
+Data:
+              Subject Name       Type  Hours/Week                   Teacher             For Classes
+0  ProgrammIIng wIIth Java     Theory           4    JP - Dr. Jeevan PIInto  MCA II 'A', MCA II 'B'
+1      Database Management     Theory           4      SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+2       MachIIne LearnIIng     Theory           4       SB - Dr. Santhosh B  MCA II 'A', MCA II 'B'
+3        Computer Networks     Theory           4  BB - Mr. BrIIll BrenhIIl  MCA II 'A', MCA II 'B'
+4            Data MIInIIng     Theory           4          GF1 - Ms. RaIIna  MCA II 'A', MCA II 'B'
+5                 Java Lab        Lab           2                   RK / AV  MCA II 'A', MCA II 'B'
+6               Python Lab        Lab           2                        AV  MCA II 'A', MCA II 'B'
+7         Research Project        Lab           4                       GKV  MCA II 'A', MCA II 'B'
+8                Softskill   Theory             2                 Placement  MCA II 'A', MCA II 'B'
+9                     DBMS        Lab           2      SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+Row 0: name=ProgrammIIng wIIth Java, type=theory, hours=4, teacher=JP - Dr. Jeevan PIInto, classes=MCA II 'A', MCA II 'B'
+Added subject: ProgrammIIng wIIth Java -> for_classes list: ['MCA II A', 'MCA II B']
+Row 1: name=Database Management, type=theory, hours=4, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: Database Management -> for_classes list: ['MCA II A', 'MCA II B']
+Row 2: name=MachIIne LearnIIng, type=theory, hours=4, teacher=SB - Dr. Santhosh B, classes=MCA II 'A', MCA II 'B'
+Added subject: MachIIne LearnIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 3: name=Computer Networks, type=theory, hours=4, teacher=BB - Mr. BrIIll BrenhIIl, classes=MCA II 'A', MCA II 'B'
+Added subject: Computer Networks -> for_classes list: ['MCA II A', 'MCA II B']
+Row 4: name=Data MIInIIng, type=theory, hours=4, teacher=GF1 - Ms. RaIIna, classes=MCA II 'A', MCA II 'B'
+Added subject: Data MIInIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 5: name=Java Lab, type=lab, hours=2, teacher=RK / AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Java Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 6: name=Python Lab, type=lab, hours=2, teacher=AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Python Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 7: name=Research Project, type=lab, hours=4, teacher=GKV, classes=MCA II 'A', MCA II 'B'
+Added subject: Research Project -> for_classes list: ['MCA II A', 'MCA II B']
+Row 8: name=Softskill, type=theory, hours=2, teacher=Placement, classes=MCA II 'A', MCA II 'B'
+Added subject: Softskill -> for_classes list: ['MCA II A', 'MCA II B']
+Row 9: name=DBMS, type=lab, hours=2, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: DBMS -> for_classes list: ['MCA II A', 'MCA II B']
+Total subjects loaded: 10
+
+Classes loaded: ["MCA II 'A'", "MCA II 'B'"]
+
+================================================================================
+UPLOAD EXCEL CALLED
+================================================================================
+File name: MCA.xlsx
+Reading Excel file...
+Sheet names: ['Subjects', 'Rooms', 'Classes']
+Columns: ['Subject Name', 'Type', 'Hours/Week', 'Teacher', 'For Classes']
+Shape: (10, 5)
+Data:
+              Subject Name       Type  Hours/Week                   Teacher             For Classes
+0  ProgrammIIng wIIth Java     Theory           4    JP - Dr. Jeevan PIInto  MCA II 'A', MCA II 'B'
+1      Database Management     Theory           4      SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+2       MachIIne LearnIIng     Theory           4       SB - Dr. Santhosh B  MCA II 'A', MCA II 'B'
+3        Computer Networks     Theory           4  BB - Mr. BrIIll BrenhIIl  MCA II 'A', MCA II 'B'
+4            Data MIInIIng     Theory           4          GF1 - Ms. RaIIna  MCA II 'A', MCA II 'B'
+5                 Java Lab        Lab           2                   RK / AV  MCA II 'A', MCA II 'B'
+6               Python Lab        Lab           2                        AV  MCA II 'A', MCA II 'B'
+7         Research Project        Lab           4                       GKV  MCA II 'A', MCA II 'B'
+8                Softskill   Theory             2                 Placement  MCA II 'A', MCA II 'B'
+9                     DBMS        Lab           2      SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+Row 0: name=ProgrammIIng wIIth Java, type=theory, hours=4, teacher=JP - Dr. Jeevan PIInto, classes=MCA II 'A', MCA II 'B'
+Added subject: ProgrammIIng wIIth Java -> for_classes list: ['MCA II A', 'MCA II B']
+Row 1: name=Database Management, type=theory, hours=4, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: Database Management -> for_classes list: ['MCA II A', 'MCA II B']
+Row 2: name=MachIIne LearnIIng, type=theory, hours=4, teacher=SB - Dr. Santhosh B, classes=MCA II 'A', MCA II 'B'
+Added subject: MachIIne LearnIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 3: name=Computer Networks, type=theory, hours=4, teacher=BB - Mr. BrIIll BrenhIIl, classes=MCA II 'A', MCA II 'B'
+Added subject: Computer Networks -> for_classes list: ['MCA II A', 'MCA II B']
+Row 4: name=Data MIInIIng, type=theory, hours=4, teacher=GF1 - Ms. RaIIna, classes=MCA II 'A', MCA II 'B'
+Added subject: Data MIInIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 5: name=Java Lab, type=lab, hours=2, teacher=RK / AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Java Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 6: name=Python Lab, type=lab, hours=2, teacher=AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Python Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 7: name=Research Project, type=lab, hours=4, teacher=GKV, classes=MCA II 'A', MCA II 'B'
+Added subject: Research Project -> for_classes list: ['MCA II A', 'MCA II B']
+Row 8: name=Softskill, type=theory, hours=2, teacher=Placement, classes=MCA II 'A', MCA II 'B'
+Added subject: Softskill -> for_classes list: ['MCA II A', 'MCA II B']
+Row 9: name=DBMS, type=lab, hours=2, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: DBMS -> for_classes list: ['MCA II A', 'MCA II B']
+Total subjects loaded: 10
+
+Classes loaded: ["MCA II 'A'", "MCA II 'B'"]
+
+=== GA STARTING ===
+Population: 50, Generations: 100
+Generation 0: Fitness = 452.00
+Generation 10: Fitness = 452.00
+Generation 20: Fitness = 452.00
+Generation 30: Fitness = 452.00
+Generation 40: Fitness = 452.00
+Generation 50: Fitness = 452.00
+Generation 60: Fitness = 452.00
+Generation 70: Fitness = 452.00
+Generation 80: Fitness = 452.00
+Generation 90: Fitness = 452.00
+GA Complete - Best Fitness: 452.00
+
+================================================================================
+UPLOAD EXCEL CALLED
+================================================================================
+File name: MCA.xlsx
+Reading Excel file...
+Sheet names: ['Subjects', 'Rooms', 'Classes']
+Columns: ['Subject Name', 'Type', 'Hours/Week', 'Teacher', 'For Classes']
+Shape: (10, 5)
+Data:
+              Subject Name       Type  Hours/Week                   Teacher             For Classes
+0  ProgrammIIng wIIth Java     Theory           4    JP - Dr. Jeevan PIInto  MCA II 'A', MCA II 'B'
+1      Database Management     Theory           4      SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+2       MachIIne LearnIIng     Theory           4       SB - Dr. Santhosh B  MCA II 'A', MCA II 'B'
+3        Computer Networks     Theory           4  BB - Mr. BrIIll BrenhIIl  MCA II 'A', MCA II 'B'
+4            Data MIInIIng     Theory           4          GF1 - Ms. RaIIna  MCA II 'A', MCA II 'B'
+5                 Java Lab        Lab           2                   RK / AV  MCA II 'A', MCA II 'B'
+6               Python Lab        Lab           2                        AV  MCA II 'A', MCA II 'B'
+7         Research Project        Lab           4                       GKV  MCA II 'A', MCA II 'B'
+8                Softskill   Theory             2                 Placement  MCA II 'A', MCA II 'B'
+9                     DBMS        Lab           2      SV - Mrs. Suchetha V  MCA II 'A', MCA II 'B'
+Row 0: name=ProgrammIIng wIIth Java, type=theory, hours=4, teacher=JP - Dr. Jeevan PIInto, classes=MCA II 'A', MCA II 'B'
+Added subject: ProgrammIIng wIIth Java -> for_classes list: ['MCA II A', 'MCA II B']
+Row 1: name=Database Management, type=theory, hours=4, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: Database Management -> for_classes list: ['MCA II A', 'MCA II B']
+Row 2: name=MachIIne LearnIIng, type=theory, hours=4, teacher=SB - Dr. Santhosh B, classes=MCA II 'A', MCA II 'B'
+Added subject: MachIIne LearnIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 3: name=Computer Networks, type=theory, hours=4, teacher=BB - Mr. BrIIll BrenhIIl, classes=MCA II 'A', MCA II 'B'
+Added subject: Computer Networks -> for_classes list: ['MCA II A', 'MCA II B']
+Row 4: name=Data MIInIIng, type=theory, hours=4, teacher=GF1 - Ms. RaIIna, classes=MCA II 'A', MCA II 'B'
+Added subject: Data MIInIIng -> for_classes list: ['MCA II A', 'MCA II B']
+Row 5: name=Java Lab, type=lab, hours=2, teacher=RK / AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Java Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 6: name=Python Lab, type=lab, hours=2, teacher=AV, classes=MCA II 'A', MCA II 'B'
+Added subject: Python Lab -> for_classes list: ['MCA II A', 'MCA II B']
+Row 7: name=Research Project, type=lab, hours=4, teacher=GKV, classes=MCA II 'A', MCA II 'B'
+Added subject: Research Project -> for_classes list: ['MCA II A', 'MCA II B']
+Row 8: name=Softskill, type=theory, hours=2, teacher=Placement, classes=MCA II 'A', MCA II 'B'
+Added subject: Softskill -> for_classes list: ['MCA II A', 'MCA II B']
+Row 9: name=DBMS, type=lab, hours=2, teacher=SV - Mrs. Suchetha V, classes=MCA II 'A', MCA II 'B'
+Added subject: DBMS -> for_classes list: ['MCA II A', 'MCA II B']
+Total subjects loaded: 10
+
+Classes loaded: ["MCA II 'A'", "MCA II 'B'"]
+
+=== GA STARTING ===
+Population: 50, Generations: 100
+Generation 0: Fitness = 230.00
+Generation 10: Fitness = 230.00
+Generation 20: Fitness = 230.00
+Generation 30: Fitness = 230.00
+Generation 40: Fitness = 230.00
+Generation 50: Fitness = 230.00
+Generation 60: Fitness = 230.00
+Generation 70: Fitness = 230.00
+Generation 80: Fitness = 230.00
+Generation 90: Fitness = 230.00
+GA Complete - Best Fitness: 230.00
+
+=== GA STARTING ===
+Population: 50, Generations: 100
+Generation 0: Fitness = 230.00
+Generation 10: Fitness = 230.00
+Generation 20: Fitness = 230.00
+Generation 30: Fitness = 230.00
+Generation 40: Fitness = 230.00
+Generation 50: Fitness = 230.00
+Generation 60: Fitness = 230.00
+Generation 70: Fitness = 230.00
+Generation 80: Fitness = 230.00
+Generation 90: Fitness = 230.00
+GA Complete - Best Fitness: 230.00
+
+=== GA STARTING ===
+Population: 50, Generations: 100
+Generation 0: Fitness = 230.00
+Generation 10: Fitness = 230.00
+Generation 20: Fitness = 230.00
+Generation 30: Fitness = 230.00
+Generation 40: Fitness = 230.00
+Generation 50: Fitness = 230.00
+Generation 60: Fitness = 230.00
+Generation 70: Fitness = 230.00
+Generation 80: Fitness = 230.00
+Generation 90: Fitness = 230.00
+GA Complete - Best Fitness: 230.00
+
+=== GA STARTING ===
+Population: 50, Generations: 100
+Generation 0: Fitness = 230.00
+Generation 10: Fitness = 230.00
+Generation 20: Fitness = 230.00
+Generation 30: Fitness = 230.00
+Generation 40: Fitness = 230.00
+Generation 50: Fitness = 230.00
+Generation 60: Fitness = 230.00
+Generation 70: Fitness = 230.00
+Generation 80: Fitness = 230.00
+Generation 90: Fitness = 230.00
+GA Complete - Best Fitness: 230.00
+
+=== GA STARTING ===
+Population: 50, Generations: 100
+Generation 0: Fitness = 412.00
+Generation 10: Fitness = 412.00
+Generation 20: Fitness = 412.00
+Generation 30: Fitness = 412.00
+Generation 40: Fitness = 412.00
+Generation 50: Fitness = 412.00
+Generation 60: Fitness = 412.00
+Generation 70: Fitness = 412.00
+Generation 80: Fitness = 412.00
+Generation 90: Fitness = 412.00
+GA Complete - Best Fitness: 412.00
+
+=== GA STARTING ===
+Population: 50, Generations: 100
+Generation 0: Fitness = 412.00
+Generation 10: Fitness = 412.00
+Generation 20: Fitness = 412.00
+Generation 30: Fitness = 412.00
+Generation 40: Fitness = 412.00
+Generation 50: Fitness = 412.00
+Generation 60: Fitness = 412.00
+Generation 70: Fitness = 412.00
+Generation 80: Fitness = 412.00
+Generation 90: Fitness = 412.00
+GA Complete - Best Fitness: 412.00
+
+=== GA STARTING ===
+Population: 50, Generations: 100
+Generation 0: Fitness = 412.00
+Generation 10: Fitness = 412.00
+Generation 20: Fitness = 412.00
+Generation 30: Fitness = 412.00
+Generation 40: Fitness = 412.00
+Generation 50: Fitness = 412.00
+Generation 60: Fitness = 412.00
+Generation 70: Fitness = 412.00
+Generation 80: Fitness = 412.00
+Generation 90: Fitness = 412.00
+GA Complete - Best Fitness: 412.00
+
+=== GA STARTING ===
+Population: 50, Generations: 100
+Generation 0: Fitness = 413.00
+Generation 10: Fitness = 452.00
+Generation 20: Fitness = 452.00
+Generation 30: Fitness = 452.00
+Generation 40: Fitness = 452.00
+Generation 50: Fitness = 452.00
+Generation 60: Fitness = 452.00
+Generation 70: Fitness = 452.00
+Generation 80: Fitness = 452.00
+Generation 90: Fitness = 452.00
+GA Complete - Best Fitness: 452.00
+
+=== GA STARTING ===
+Population: 50, Generations: 100
+Generation 0: Fitness = 412.00
+Generation 10: Fitness = 424.00
+Generation 20: Fitness = 424.00
+Generation 30: Fitness = 424.00
+Generation 40: Fitness = 424.00
+Generation 50: Fitness = 424.00
+Generation 60: Fitness = 424.00
+Generation 70: Fitness = 424.00
+Generation 80: Fitness = 424.00
+Generation 90: Fitness = 424.00
+GA Complete - Best Fitness: 424.00

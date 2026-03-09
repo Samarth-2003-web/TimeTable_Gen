@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .main-container { padding: 2rem 0; }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px 15px 0 0 !important;
+            padding: 1.5rem;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        .nav-pills .nav-link.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .nav-pills .nav-link {
+            color: #667eea;
+        }
+        .subject-card, .class-card, .room-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+        }
+        .subject-card.lab { border-left-color: #e74c3c; }
+        .remove-btn {
+            color: #dc3545;
+            cursor: pointer;
+        }
+        .timetable {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Times New Roman', serif;
+        }
+        .timetable th, .timetable td {
+            border: 2px solid #000;
+            padding: 6px 4px;
+            text-align: center;
+            font-size: 0.75rem;
+            vertical-align: middle;
+            min-width: 90px;
+        }
+        .timetable th {
+            background-color: #d4edda;
+            color: #000;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+        .timetable th.period-header {
+            background-color: #fff3cd;
+            min-width: 100px;
+        }
+        .timetable th.day-header {
+            background-color: #cce5ff;
+            width: 80px;
+            font-weight: bold;
+        }
+        .cell-theory { background-color: #ffffff; }
+        .cell-lab { background-color: #ffe6e6; }
+        .cell-lunch { background-color: #ffd700; font-weight: bold; }
+        .cell-free { background-color: #f5f5f5; color: #666; font-style: italic; }
+        .cell-combined { background-color: #e6ffe6; }
+        .timetable .subject-name { font-weight: bold; font-size: 0.8rem; }
+        .timetable .teacher-name { font-size: 0.7rem; color: #444; }
+        .timetable .room-name { font-size: 0.65rem; color: #666; }
+        .timetable-header {
+            text-align: center;
+            margin-bottom: 15px;
+            border: 2px solid #000;
+            padding: 10px;
+            background-color: #f8f9fa;
+        }
+        .timetable-header h3 { margin: 0; font-family: 'Times New Roman', serif; }
+        .timetable-header p { margin: 5px 0 0 0; font-size: 0.9rem; }
+        .class-tab {
+            cursor: pointer;
+            padding: 8px 20px;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            margin: 5px;
+            display: inline-block;
+            transition: all 0.3s;
+            background-color: #fff;
+        }
+        .class-tab:hover, .class-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .form-section { margin-bottom: 2rem; }
+        .section-title {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        #loading { display: none; }
+        .badge-lab { background-color: #e74c3c; }
+        .badge-theory { background-color: #3498db; }
+        .upload-zone {
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            background-color: #f8f9ff;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .upload-zone:hover {
+            background-color: #eef2ff;
+            border-color: #764ba2;
+        }
+        .upload-zone.dragover {
+            background-color: #e0e7ff;
+            border-color: #764ba2;
+        }
+        .upload-zone i { font-size: 3rem; color: #667eea; }
+        .upload-success { color: #28a745; }
+        .upload-error { color: #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="container main-container">
+        <div class="row justify-content-center">
+            <div class="col-lg-11">
+                <!-- Wizard Progress Bar -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-3 text-center"><i class="bi bi-calendar3"></i> Timetable Generator - Step by Step</h4>
+                        <div class="progress" style="height: 25px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progressBar" role="progressbar" style="width: 20%;" aria-valuenow="1" aria-valuemin="1" aria-valuemax="6">Step 1 of 6</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 1: Choose Method -->
+                <div class="card mb-4" id="step1" data-step="1">
+                    <div class="card-header">
+                        <h5><i class="bi bi-question-circle"></i> Step 1: Choose How to Enter Data</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card border-primary p-4 text-center cursor-pointer" onclick="chooseMethod('upload')" style="cursor: pointer;">
+                                    <i class="bi bi-cloud-upload" style="font-size: 3rem; color: #667eea;"></i>
+                                    <h5 class="mt-3">Upload File</h5>
+                                    <p class="text-muted">Upload Excel or CSV file</p>
+                                    <small>Classes and lecturers will be auto-filled</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-success p-4 text-center cursor-pointer" onclick="chooseMethod('manual')" style="cursor: pointer;">
+                                    <i class="bi bi-pencil-square" style="font-size: 3rem; color: #28a745;"></i>
+                                    <h5 class="mt-3">Manual Entry</h5>
+                                    <p class="text-muted">Enter data step by step</p>
+                                    <small>Full control over all settings</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Upload File (shown if upload chosen) -->
+                <div class="card mb-4" id="step2upload" data-step="2" style="display: none;">
+                    <div class="card-header">
+                        <h5><i class="bi bi-upload"></i> Step 2: Upload Excel/CSV File</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="upload-zone" id="uploadZone" ondrop="handleDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" onclick="document.getElementById('fileInput').click()">
+                            <i class="bi bi-cloud-upload"></i>
+                            <p class="mt-2"><strong>Drag and drop your file here or click to browse</strong></p>
+                            <small class="text-muted">Supported formats: Excel (.xlsx, .xls), CSV</small>
+                            <input type="file" id="fileInput" style="display: none;" accept=".xlsx,.xls,.csv" onchange="handleFileUpload(event)">
+                        </div>
+                        <div id="uploadStatus" class="mt-3"></div>
+                        <div class="text-center mt-4">
+                            <button class="btn btn-secondary me-2" onclick="goToStep(1)">← Back</button>
+                            <button class="btn btn-primary" onclick="goToStep(4)" id="uploadNextBtn" disabled>Next: Constraints →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Class Setup (shown if manual chosen) -->
+                <div class="card mb-4" id="step2manual" data-step="2" style="display: none;">
+                    <div class="card-header">
+                        <h5><i class="bi bi-people"></i> Step 2: Setup Classes</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted">Add all classes with their lunch hours</p>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="className" placeholder="Class Name (e.g., MCA II A)">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="number" class="form-control" id="classStudents" placeholder="Number of Students" value="60">
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select" id="classLunch">
+                                    <option value="12:00 - 01:00">12:00 - 01:00</option>
+                                    <option value="01:00 - 02:00">01:00 - 02:00</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-success w-100" onclick="addClass()">Add</button>
+                            </div>
+                        </div>
+                        <div id="classesList"></div>
+                        <div class="text-center mt-3 mb-3">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="loadSampleClasses()">
+                                <i class="bi bi-lightning"></i> Load Sample Classes
+                            </button>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button class="btn btn-secondary me-2" onclick="goToStep(1)">← Back</button>
+                            <button class="btn btn-primary" onclick="goToStep(3)" id="classNextBtn" disabled>Next: Lecturers →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3: Lecturer Assignment -->
+                <div class="card mb-4" id="step3" data-step="3" style="display: none;">
+                    <div class="card-header">
+                        <h5><i class="bi bi-person-badge"></i> Step 3: Assign Lecturers</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted">Add lecturers and assign them to classes</p>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" id="subjectName" placeholder="Lecturer Name (JP, SV, etc)">
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-select" id="subjectType">
+                                    <option value="theory">Theory</option>
+                                    <option value="lab">Lab</option>
+                                    <option value="extra">Extra-Curricular</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" class="form-control" id="subjectHours" placeholder="Hours/Week" value="4" min="1" max="10">
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-success w-100" onclick="addSubject()">Add Lecturer</button>
+                            </div>
+                        </div>
+                        <div id="subjectsList"></div>
+                        <div class="text-center mt-3 mb-3">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="loadSampleLecturers()">
+                                <i class="bi bi-lightning"></i> Load Sample Lecturers
+                            </button>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button class="btn btn-secondary me-2" onclick="goToStep(2)">← Back</button>
+                            <button class="btn btn-primary" onclick="goToStep(4)" id="lecturerNextBtn" disabled>Next: Constraints →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 4: Constraints -->
+                <div class="card mb-4" id="step4" data-step="4" style="display: none;">
+                    <div class="card-header">
+                        <h5><i class="bi bi-sliders"></i> Step 4: Set Constraints</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted">Configure scheduling constraints</p>
+                        
+                        <div class="mb-4">
+                            <h6><i class="bi bi-check2-circle"></i> Combined Classes</h6>
+                            <p class="small text-muted">Lecturers teaching same class at same time</p>
+                            <div id="constraintsList"></div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h6><i class="bi bi-gear"></i> Other Constraints</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="breakAfterTwoConsecutive" checked>
+                                <label class="form-check-label" for="breakAfterTwoConsecutive">
+                                    After 2 consecutive slots, lecturer must have 1 free slot
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="avoidFourTheory" checked>
+                                <label class="form-check-label" for="avoidFourTheory">
+                                    Avoid 4 theory lectures continuously
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="labsContinuous" checked>
+                                <label class="form-check-label" for="labsContinuous">
+                                    Labs and extra-curricular (2 hr) require continuous slots
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="avoidGaps" checked>
+                                <label class="form-check-label" for="avoidGaps">
+                                    Avoid unnecessary gaps in timetable
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="distributeWorkload" checked>
+                                <label class="form-check-label" for="distributeWorkload">
+                                    Distribute lecturer workload across the week
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="balanceTimeOfDay" checked>
+                                <label class="form-check-label" for="balanceTimeOfDay">
+                                    Balance lecturer time of day (morning/afternoon)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="noBackToBack" checked>
+                                <label class="form-check-label" for="noBackToBack">
+                                    No back-to-back theory classes
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="labAfternoon">
+                                <label class="form-check-label" for="labAfternoon">
+                                    Labs only in afternoon (after 01:00)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button class="btn btn-secondary me-2" onclick="goToStep(3)">← Back</button>
+                            <button class="btn btn-primary" onclick="generateTimetable()">Generate Timetable →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 5: Generated Timetable -->
+                <div class="card mb-4" id="step5" data-step="5" style="display: none;">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="bi bi-table"></i> Step 5: Generated Timetable</h5>
+                        <div>
+                            <button class="btn btn-light btn-sm me-2" onclick="printTimetable()"><i class="bi bi-printer"></i> Print</button>
+                            <button class="btn btn-light btn-sm me-2" onclick="downloadCSV()"><i class="bi bi-download"></i> CSV</button>
+                            <button class="btn btn-light btn-sm" onclick="downloadExcel()"><i class="bi bi-file-earmark-excel"></i> Excel</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div id="classTabs" class="text-center mb-3"></div>
+                            <div id="timetableContainer"></div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button class="btn btn-warning me-2" onclick="goToStep(4)"><i class="bi bi-pencil"></i> Edit</button>
+                            <button class="btn btn-success" onclick="goToStep(6)"><i class="bi bi-pencil-square"></i> Next: Edit Slots →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 6: Edit Mode -->
+                <div class="card mb-4" id="step6" data-step="6" style="display: none;">
+                    <div class="card-header">
+                        <h5><i class="bi bi-pencil-square"></i> Step 6: Edit Slots</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="alert alert-info"><i class="bi bi-info-circle"></i> Click on any cell to swap lecturers</p>
+                        <div id="editTimetableContainer"></div>
+                        <div class="text-center mt-4">
+                            <button class="btn btn-secondary me-2" onclick="goToStep(5)">← Back</button>
+                            <button class="btn btn-success" onclick="saveAndDownload()">✓ Save & Download</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loading Indicator -->
+                <div id="loading" class="text-center mt-4" style="display: none;">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-2">Generating timetable...</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Global Data Storage
+        let lecturers = [];
+        let classes = [];
+        let constraints = {};
+        let currentTimetable = null;
+        let currentStep = 1;
+        let entryMethod = null;  // 'upload' or 'manual'
+
+        // ===== STEP NAVIGATION =====
+        function goToStep(stepNum) {
+            // Hide all steps
+            document.querySelectorAll('[data-step]').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Show selected step
+            if (stepNum === 2) {
+                if (entryMethod === 'upload') {
+                    document.getElementById('step2upload').style.display = 'block';
+                } else {
+                    document.getElementById('step2manual').style.display = 'block';
+                }
+            } else {
+                const stepEl = document.getElementById('step' + stepNum);
+                if (stepEl) stepEl.style.display = 'block';
+            }
+            
+            // Update progress bar
+            updateProgressBar(stepNum);
+            currentStep = stepNum;
+        }
+
+        function updateProgressBar(step) {
+            const progressBar = document.getElementById('progressBar');
+            const percentage = (step / 6) * 100;
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = `Step ${step} of 6`;
+            progressBar.setAttribute('aria-valuenow', step);
+        }
+
+        function chooseMethod(method) {
+            entryMethod = method;
+            console.log('Entry method chosen:', method);
+            
+            // Hide step 1
+            document.getElementById('step1').style.display = 'none';
+            
+            if (method === 'upload') {
+                // Show upload step
+                document.getElementById('step2upload').style.display = 'block';
+                updateProgressBar(2);
+                currentStep = 2;
+                // Click file input to open dialog
+                document.getElementById('fileInput').click();
+            } else {
+                // Show manual entry step
+                document.getElementById('step2manual').style.display = 'block';
+                updateProgressBar(2);
+                currentStep = 2;
+                // Clear previous data
+                renderClasses();
+            }
+        }
+
+        // ===== STEP 2: CLASS SETUP =====
+        function addClass() {
+            const name = document.getElementById('className').value.trim();
+            const students = parseInt(document.getElementById('classStudents').value) || 60;
+            const lunch = document.getElementById('classLunch').value;
+            
+            console.log('Adding class:', { name, students, lunch });
+            
+            if (!name) {
+                alert('Please enter class name');
+                return;
+            }
+            
+            if (classes.some(c => c.name === name)) {
+                alert('Class name already exists');
+                return;
+            }
+            
+            classes.push({ name, students, lunch_slot: lunch });
+            console.log('Classes updated:', classes);
+            renderClasses();
+            
+            // Clear form
+            document.getElementById('className').value = '';
+            document.getElementById('classStudents').value = '60';
+            document.getElementById('classLunch').value = '12:00 - 01:00';
+            
+            // Enable Next button if at least 1 class
+            if (classes.length > 0) {
+                document.getElementById('classNextBtn').disabled = false;
+            }
+        }
+
+        function removeClass(index) {
+            classes.splice(index, 1);
+            renderClasses();
+            if (classes.length === 0) {
+                document.getElementById('classNextBtn').disabled = true;
+            }
+        }
+
+        function renderClasses() {
+            const container = document.getElementById('classesList');
+            if (classes.length === 0) {
+                container.innerHTML = '<p class="text-muted"><i class="bi bi-info-circle"></i> No classes added yet</p>';
+                return;
+            }
+            
+            container.innerHTML = '<div class="table-responsive">' +
+                '<table class="table table-sm table-hover">' +
+                '<thead><tr><th>Class Name</th><th>Students</th><th>Lunch Time</th><th>Action</th></tr></thead>' +
+                '<tbody>' +
+                classes.map((c, i) => `
+                    <tr>
+                        <td><strong>${c.name}</strong></td>
+                        <td>${c.students}</td>
+                        <td><span class="badge bg-warning text-dark">${c.lunch_slot}</span></td>
+                        <td><button class="btn btn-sm btn-danger" onclick="removeClass(${i})"><i class="bi bi-trash"></i></button></td>
+                    </tr>
+                `).join('') +
+                '</tbody></table></div>';
+        }
+
+        // ===== STEP 3: LECTURERS =====
+        function addSubject() {
+            const name = document.getElementById('subjectName').value.trim().toUpperCase();
+            const type = document.getElementById('subjectType').value;
+            const hours = parseInt(document.getElementById('subjectHours').value) || 4;
+            
+            if (!name) {
+                alert('Please enter lecturer name');
+                return;
+            }
+            
+            if (lecturers.some(l => l.name === name)) {
+                alert('Lecturer already exists');
+                return;
+            }
+            
+            lecturers.push({ name, type, hours_per_week: hours });
+            renderSubjects();
+            
+            // Clear form
+            document.getElementById('subjectName').value = '';
+            document.getElementById('subjectHours').value = '4';
+            document.getElementById('subjectType').value = 'theory';
+            
+            // Enable Next button if at least 1 lecturer
+            if (lecturers.length > 0) {
+                document.getElementById('lecturerNextBtn').disabled = false;
+            }
+        }
+
+        function removeSubject(index) {
+            lecturers.splice(index, 1);
+            renderSubjects();
+            if (lecturers.length === 0) {
+                document.getElementById('lecturerNextBtn').disabled = true;
+            }
+        }
+
+        function renderSubjects() {
+            const container = document.getElementById('subjectsList');
+            if (lecturers.length === 0) {
+                container.innerHTML = '<p class="text-muted"><i class="bi bi-info-circle"></i> No lecturers added yet</p>';
+                return;
+            }
+            
+            container.innerHTML = '<div class="row">' +
+                lecturers.map((l, i) => `
+                    <div class="col-md-6 mb-2">
+                        <div class="card">
+                            <div class="card-body py-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>${l.name}</strong>
+                                        <span class="badge bg-${l.type === 'lab' ? 'danger' : 'primary'} ms-2">${l.type.toUpperCase()}</span>
+                                        <br><small class="text-muted"><i class="bi bi-clock"></i> ${l.hours_per_week} hrs/week</small>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-danger" onclick="removeSubject(${i})"><i class="bi bi-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('') +
+                '</div>';
+        }
+
+        // ===== STEP 4: CONSTRAINTS =====
+        function renderConstraintsList() {
+            const container = document.getElementById('constraintsList');
+            
+            // Render combined class option
+            let html = '<div class="row g-2 mb-3">';
+            html += '<div class="col-md-6">';
+            html += '<label class="form-label small">Lecturer</label>';
+            html += '<select class="form-select form-select-sm" id="combineLecturer">';
+            html += '<option value="">Select lecturer...</option>';
+            lecturers.forEach((l, i) => {
+                html += `<option value="${i}">${l.name}</option>`;
+            });
+            html += '</select>';
+            html += '</div>';
+            
+            html += '<div class="col-md-6">';
+            html += '<label class="form-label small">Classes (Multi-select)</label>';
+            html += '<select class="form-select form-select-sm" id="combineClassSelect" multiple>';
+            classes.forEach(c => {
+                html += `<option value="${c.name}">${c.name}</option>`;
+            });
+            html += '</select>';
+            html += '</div>';
+            html += '</div>';
+            html += '<button class="btn btn-sm btn-primary mb-3" onclick="addCombinedClass()">+ Add Combined Class</button>';
+            
+            // Show added combined classes
+            if (constraints.combined_classes && constraints.combined_classes.length > 0) {
+                html += '<div class="mt-3"><strong>Combined Classes:</strong>';
+                constraints.combined_classes.forEach((cc, i) => {
+                    html += `
+                        <div class="alert alert-success py-2 px-3 mb-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span><strong>${lecturers[cc.lecturer_idx].name}</strong> teaches: ${cc.classes.join(', ')}</span>
+                                <button class="btn btn-sm btn-outline-danger" onclick="removeCombinedClass(${i})">×</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            container.innerHTML = html;
+        }
+
+        function addCombinedClass() {
+            const lectureIdx = document.getElementById('combineLecturer').value;
+            const selectedClasses = Array.from(document.getElementById('combineClassSelect').selectedOptions).map(o => o.value);
+            
+            if (lectureIdx === '' || selectedClasses.length < 2) {
+                alert('Select a lecturer and at least 2 classes');
+                return;
+            }
+            
+            if (!constraints.combined_classes) {
+                constraints.combined_classes = [];
+            }
+            
+            constraints.combined_classes.push({
+                lecturer_idx: parseInt(lectureIdx),
+                classes: selectedClasses
+            });
+            
+            renderConstraintsList();
+            document.getElementById('combineLecturer').value = '';
+            document.getElementById('combineClassSelect').value = '';
+        }
+
+        function removeCombinedClass(index) {
+            if (constraints.combined_classes) {
+                constraints.combined_classes.splice(index, 1);
+            }
+            renderConstraintsList();
+        }
+
+        // ===== STEP 5 & 6: TIMETABLE DISPLAY & EDIT =====
+        async function generateTimetable() {
+            if (lecturers.length === 0 || classes.length === 0) {
+                alert('Please add at least one lecturer and one class');
+                return;
+            }
+
+            // Collect all checkbox-based constraints before sending.
+            constraints.break_after_two_consecutive = document.getElementById('breakAfterTwoConsecutive')?.checked !== false;
+            constraints.avoid_four_theory_continuous = document.getElementById('avoidFourTheory')?.checked !== false;
+            constraints.labs_require_two_continuous_slots = document.getElementById('labsContinuous')?.checked !== false;
+            constraints.avoid_unnecessary_gaps = document.getElementById('avoidGaps')?.checked !== false;
+            constraints.distribute_workload_across_week = document.getElementById('distributeWorkload')?.checked !== false;
+            constraints.balance_time_of_day_for_lecturers = document.getElementById('balanceTimeOfDay')?.checked !== false;
+            constraints.no_back_to_back_theory = document.getElementById('noBackToBack')?.checked || false;
+            constraints.lab_afternoon_only = document.getElementById('labAfternoon')?.checked || false;
+            
+            const loading = document.getElementById('loading');
+            loading.style.display = 'block';
+            
+            try {
+                const response = await fetch('/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        lecturers: lecturers,
+                        classes: classes,
+                        constraints: constraints
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentTimetable = data;
+                    displayTimetable(data);
+                    goToStep(5);
+                } else {
+                    alert(data.error || 'Failed to generate timetable');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function displayTimetable(data) {
+            const tabsContainer = document.getElementById('classTabs');
+            tabsContainer.innerHTML = data.classes.map((cls, i) => 
+                `<button class="btn ${i === 0 ? 'btn-primary' : 'btn-outline-primary'} btn-sm me-2 class-tab" data-class="${cls}" onclick="switchClass(this, '${cls}')">${cls}</button>`
+            ).join('');
+            
+            renderTable(data, data.classes[0]);
+        }
+
+        function switchClass(btn, className) {
+            document.querySelectorAll('.class-tab').forEach(b => b.classList.remove('btn-primary'));
+            document.querySelectorAll('.class-tab').forEach(b => b.classList.add('btn-outline-primary'));
+            btn.classList.remove('btn-outline-primary');
+            btn.classList.add('btn-primary');
+            
+            renderTable(currentTimetable, className);
+        }
+
+        function renderTable(data, className) {
+            const schedule = data.timetable[className];
+            
+            let html = `
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4>${className.toUpperCase()}</h4>
+                        <small class="text-muted">Academic Year 2025-26</small>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-sm">
+                                <thead>
+                                    <tr>
+                                        <th style="background: #e3f2fd; width: 100px;">DAY</th>
+            `;
+            
+            // Add time slots as headers
+            data.timeSlots.forEach(slot => {
+                html += `<th style="background: #fff3cd; font-size: 0.85rem;">${slot}</th>`;
+            });
+            html += '</tr></thead><tbody>';
+            
+            // Add days as rows
+            data.days.forEach(day => {
+                html += `<tr><th style="background: #e3f2fd;">${day.toUpperCase()}</th>`;
+                
+                data.timeSlots.forEach(slot => {
+                    const cell = schedule[day]?.[slot];
+                    let cellClass = 'cell-free';
+                    let content = '-';
+                    
+                    if (cell) {
+                        if (cell.type === 'break') {
+                            cellClass = 'text-center';
+                            content = '<strong style="color: #d9534f;">LUNCH</strong>';
+                        } else if (cell.type === 'off' || cell.type === 'OFF') {
+                            cellClass = 'text-center';
+                            content = '<span style="color: #999;">OFF</span>';
+                        } else if (cell.lecturer && cell.lecturer !== 'Free') {
+                            cellClass = cell.type === 'lab' ? 'table-danger' : 'table-primary';
+                            content = `<strong>${cell.lecturer}</strong>`;
+                            if (cell.type) {
+                                const typeLabel = cell.type.charAt(0).toUpperCase() + cell.type.slice(1);
+                                content += `<br><small style="font-size: 0.75rem;">${typeLabel}</small>`;
+                            }
+                        }
+                    }
+                    
+                    html += `<td class="${cellClass} text-center font-monospace" style="font-size: 0.9rem;">${content}</td>`;
+                });
+                
+                html += '</tr>';
+            });
+            
+            html += '</tbody></table></div></div>';
+            
+            document.getElementById('timetableContainer').innerHTML = html;
+            
+            // Create editable version for Step 6
+            let editHtml = `
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4>${className.toUpperCase()}</h4>
+                        <small class="text-muted">Academic Year 2025-26</small>
+                    </div>
+                    <div class="card-body">
+                        <p class="alert alert-info"><i class="bi bi-info-circle"></i> Drag and drop lecturer cells to swap</p>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-sm">
+                                <thead>
+                                    <tr>
+                                        <th style="background: #e3f2fd; width: 100px;">DAY</th>
+            `;
+            
+            // Add time slots as headers
+            data.timeSlots.forEach(slot => {
+                editHtml += `<th style="background: #fff3cd; font-size: 0.85rem;">${slot}</th>`;
+            });
+            editHtml += '</tr></thead><tbody>';
+            
+            // Add days as rows with draggable cells
+            data.days.forEach(day => {
+                editHtml += `<tr><th style="background: #e3f2fd;">${day.toUpperCase()}</th>`;
+                
+                data.timeSlots.forEach((slot, slotIdx) => {
+                    const cell = schedule[day]?.[slot];
+                    let cellClass = 'cell-free';
+                    let content = '-';
+                    let isDraggable = '';
+                    
+                    if (cell) {
+                        if (cell.type === 'break') {
+                            cellClass = 'text-center';
+                            content = '<strong style="color: #d9534f;">LUNCH</strong>';
+                        } else if (cell.type === 'off' || cell.type === 'OFF') {
+                            cellClass = 'text-center';
+                            content = '<span style="color: #999;">OFF</span>';
+                        } else if (cell.lecturer && cell.lecturer !== 'Free') {
+                            cellClass = cell.type === 'lab' ? 'table-danger' : 'table-primary';
+                            content = `<strong>${cell.lecturer}</strong>`;
+                            if (cell.type) {
+                                const typeLabel = cell.type.charAt(0).toUpperCase() + cell.type.slice(1);
+                                content += `<br><small style="font-size: 0.75rem;">${typeLabel}</small>`;
+                            }
+                            isDraggable = ` draggable="true" ondragstart="dragStart(event, '${className}', '${day}', '${slot}')" ondragover="dragOver(event)" ondrop="dragDrop(event, '${className}', '${day}', '${slot}')" ondragend="dragEnd(event)" style="cursor: grab;" class="draggable-cell"`;
+                        }
+                    }
+                    
+                    editHtml += `<td class="${cellClass} text-center font-monospace" style="font-size: 0.9rem;"${isDraggable}>${content}</td>`;
+                });
+                
+                editHtml += '</tr>';
+            });
+            
+            editHtml += '</tbody></table></div></div>';
+            document.getElementById('editTimetableContainer').innerHTML = editHtml;
+        }
+        
+        let draggedCell = null;
+        
+        function dragStart(event, className, day, slot) {
+            draggedCell = { className, day, slot };
+            event.dataTransfer.effectAllowed = 'move';
+            event.target.style.opacity = '0.5';
+            event.target.style.cursor = 'grabbing';
+        }
+        
+        function dragOver(event) {
+            event.preventDefault();
+            event.dataTransfer.dropEffect = 'move';
+            event.target.style.backgroundColor = '#e3f2fd';
+        }
+        
+        function dragDrop(event, className, day, slot) {
+            event.preventDefault();
+            
+            if (!draggedCell) return;
+            if (draggedCell.className !== className) return;
+            if (draggedCell.day === day && draggedCell.slot === slot) return;
+            
+            const schedule = currentTimetable.timetable[className];
+            const source = schedule[draggedCell.day][draggedCell.slot];
+            const target = schedule[day][slot];
+            
+            // Swap the cells
+            if (source && target && source.lecturer !== 'Free' && target.lecturer !== 'Free') {
+                // Check if source lecturer exists in other classes at the target day/slot
+                const sourceLecturerConflict = checkLecturerConflict(source.lecturer, className, day, slot);
+                // Check if target lecturer exists in other classes at the source day/slot  
+                const targetLecturerConflict = checkLecturerConflict(target.lecturer, className, draggedCell.day, draggedCell.slot);
+                
+                let warning = '';
+                if (sourceLecturerConflict) {
+                    warning += `⚠️ "${source.lecturer}" is already scheduled:\n${sourceLecturerConflict}\n\n`;
+                }
+                if (targetLecturerConflict) {
+                    warning += `⚠️ "${target.lecturer}" is already scheduled:\n${targetLecturerConflict}\n\n`;
+                }
+                
+                if (warning) {
+                    if (!confirm(warning + `Do you want to proceed with the swap?`)) {
+                        return;
+                    }
+                }
+                
+                const temp = { ...source };
+                schedule[draggedCell.day][draggedCell.slot] = { ...target };
+                schedule[day][slot] = temp;
+                
+                renderTable(currentTimetable, className);
+            }
+        }
+        
+        function checkLecturerConflict(lecturerName, currentClass, targetDay, targetSlot) {
+            // Check if this lecturer is scheduled in other classes at the same day/slot
+            let conflicts = [];
+            
+            for (const cls in currentTimetable.timetable) {
+                if (cls === currentClass) continue; // Skip current class
+                
+                const schedule = currentTimetable.timetable[cls];
+                const cell = schedule[targetDay]?.[targetSlot];
+                
+                if (cell && cell.lecturer === lecturerName && cell.type !== 'break' && cell.type !== 'off') {
+                    conflicts.push(`${cls} - ${targetDay} ${targetSlot}`);
+                }
+            }
+            
+            return conflicts.length > 0 ? conflicts.join('\n') : null;
+        }
+        
+        function dragEnd(event) {
+            event.target.style.opacity = '1';
+            event.target.style.cursor = 'grab';
+            // Reset all cells
+            document.querySelectorAll('.draggable-cell').forEach(cell => {
+                cell.style.backgroundColor = '';
+            });
+            draggedCell = null;
+        }
+
+        function editCell(className, day, slot) {
+            const schedule = currentTimetable.timetable[className];
+            const currentCell = schedule[day][slot];
+            
+            if (!currentCell || currentCell.type === 'break' || currentCell.type === 'off') {
+                alert('Cannot edit this cell');
+                return;
+            }
+            
+            // Get all lecturers available
+            const lecturerOptions = lecturers.map(l => l.name).join('\n');
+            const newLecturer = prompt(`Select a lecturer to replace "${currentCell.lecturer}":\n\n${lecturerOptions}`, currentCell.lecturer);
+            
+            if (newLecturer && newLecturer.toUpperCase() !== currentCell.lecturer) {
+                const upperLecturer = newLecturer.toUpperCase();
+                const lecturerData = lecturers.find(l => l.name === upperLecturer);
+                
+                if (lecturerData) {
+                    currentCell.lecturer = upperLecturer;
+                    currentCell.type = lecturerData.type;
+                    renderTable(currentTimetable, className);
+                } else {
+                    alert('Lecturer not found');
+                }
+            }
+        }
+
+        // ===== FILE UPLOAD =====
+        function handleDragOver(e) {
+            e.preventDefault();
+            document.getElementById('uploadZone').style.backgroundColor = '#e0e7ff';
+        }
+
+        function handleDragLeave(e) {
+            e.preventDefault();
+            document.getElementById('uploadZone').style.backgroundColor = '#f8f9ff';
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            document.getElementById('uploadZone').style.backgroundColor = '#f8f9ff';
+            if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                document.getElementById('fileInput').files = e.dataTransfer.files;
+                handleFileUpload({ target: { files: e.dataTransfer.files } });
+            }
+        }
+
+        function handleFileUpload(event) {
+            const input = event.target;
+            if (!input.files || !input.files[0]) return;
+            
+            const file = input.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                try {
+                    // Parse CSV or Excel (simplified for CSV)
+                    const content = e.target.result;
+                    const lines = content.split('\n');
+                    
+                    // Simple CSV parser - expects format:
+                    // Class Name,Students,Lunch Time
+                    // Lecturer Name,Type,Hours/Week
+                    
+                    let section = '';
+                    lines.forEach(line => {
+                        if (line.includes('=== CLASSES ===')) section = 'classes';
+                        else if (line.includes('=== LECTURERS ===')) section = 'lecturers';
+                        else if (line.trim() && !line.startsWith('#')) {
+                            const parts = line.split(',').map(p => p.trim());
+                            
+                            if (section === 'classes' && parts.length >= 3) {
+                                if (!classes.some(c => c.name === parts[0])) {
+                                    classes.push({
+                                        name: parts[0],
+                                        students: parseInt(parts[1]) || 60,
+                                        lunch_slot: parts[2] || '12:00 - 01:00'
+                                    });
+                                }
+                            } else if (section === 'lecturers' && parts.length >= 3) {
+                                if (!lecturers.some(l => l.name === parts[0])) {
+                                    lecturers.push({
+                                        name: parts[0].toUpperCase(),
+                                        type: parts[1].toLowerCase(),
+                                        hours_per_week: parseInt(parts[2]) || 4
+                                    });
+                                }
+                            }
+                        }
+                    });
+                    
+                    document.getElementById('uploadStatus').innerHTML = `
+                        <div class="alert alert-success">
+                            <i class="bi bi-check-circle"></i> <strong>File loaded!</strong><br>
+                            Classes: ${classes.length} | Lecturers: ${lecturers.length}
+                        </div>
+                    `;
+                    
+                    document.getElementById('uploadNextBtn').disabled = false;
+                } catch (error) {
+                    document.getElementById('uploadStatus').innerHTML = `
+                        <div class="alert alert-danger">
+                            <i class="bi bi-x-circle"></i> Error parsing file: ${error.message}
+                        </div>
+                    `;
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+
+        function saveAndDownload() {
+            if (!currentTimetable) return;
+            
+            // Download as Excel
+            showDownloadOptions();
+        }
+        
+        function showDownloadOptions() {
+            if (!currentTimetable) return;
+            
+            const choice = confirm('Download as:\nOK = Excel\nCancel = CSV');
+            
+            if (choice) {
+                downloadExcel();
+            } else {
+                downloadCSV();
+            }
+        }
+        
+        function downloadExcel() {
+            if (!currentTimetable) return;
+            
+            const data = {
+                timetable: currentTimetable.timetable,
+                classes: currentTimetable.classes
+            };
+            
+            fetch('/download-excel', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'timetable.xlsx';
+                a.click();
+            })
+            .catch(err => alert('Download failed: ' + err));
+        }
+        
+        function downloadCSV() {
+            if (!currentTimetable) return;
+            
+            const data = {
+                timetable: currentTimetable.timetable,
+                classes: currentTimetable.classes
+            };
+            
+            fetch('/download', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'timetable.csv';
+                a.click();
+            })
+            .catch(err => alert('Download failed: ' + err));
+        }
+
+        function printTimetable() {
+            if (!currentTimetable) return;
+            
+            const printWindow = window.open('', '', 'height=800,width=1200');
+            let html = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Timetable</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 20px; }
+                        h2 { text-align: center; margin-bottom: 10px; }
+                        .subtitle { text-align: center; color: #666; margin-bottom: 20px; }
+                        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+                        th, td { border: 1px solid #999; padding: 10px; text-align: center; }
+                        th { background: #667eea; color: white; font-weight: bold; }
+                        .day-header { background: #cce5ff; }
+                        .day-name { background: #cce5ff; font-weight: bold; }
+                        .break { background: #ffd700; font-weight: bold; }
+                        .lab { background: #ffe6e6; }
+                        .page-break { page-break-after: always; margin-top: 30px; }
+                        @media print { .page-break { page-break-after: always; } }
+                    </style>
+                </head>
+                <body>
+            `;
+            
+            currentTimetable.classes.forEach((cls, idx) => {
+                html += `<h2>${cls.toUpperCase()}</h2>`;
+                html += `<p class="subtitle">Academic Year 2025-26</p>`;
+                html += `<table><thead><tr><th class="day-header">DAY</th>`;
+                
+                currentTimetable.timeSlots.forEach(slot => {
+                    html += `<th class="day-header">${slot}</th>`;
+                });
+                
+                html += `</tr></thead><tbody>`;
+                const schedule = currentTimetable.timetable[cls];
+                currentTimetable.days.forEach(day => {
+                    html += `<tr><th class="day-name">${day.toUpperCase()}</th>`;
+                    currentTimetable.timeSlots.forEach(slot => {
+                        const cell = schedule[day]?.[slot];
+                        let cellHtml = '-';
+                        let cellClass = '';
+                        
+                        if (cell) {
+                            if (cell.type === 'break') {
+                                cellHtml = '<strong>LUNCH</strong>';
+                                cellClass = 'break';
+                            } else if (cell.type === 'off') {
+                                cellHtml = 'OFF';
+                            } else if (cell.lecturer && cell.lecturer !== 'Free') {
+                                cellHtml = `<strong>${cell.lecturer}</strong><br><small>${cell.type}</small>`;
+                                if (cell.type === 'lab') cellClass = 'lab';
+                            }
+                        }
+                        html += `<td class="${cellClass}">${cellHtml}</td>`;
+                    });
+                    html += `</tr>`;
+                });
+                
+                html += `</tbody></table>`;
+                if (idx < currentTimetable.classes.length - 1) {
+                    html += `<div class="page-break"></div>`;
+                }
+            });
+            
+            html += `</body></html>`;
+            
+            printWindow.document.write(html);
+            printWindow.document.close();
+            setTimeout(() => printWindow.print(), 500);
+        }
+
+        // ===== SAMPLE DATA LOADING =====
+        function loadSampleLecturers() {
+            lecturers = [
+                { name: 'JP', type: 'theory', hours_per_week: 4 },
+                { name: 'SV', type: 'theory', hours_per_week: 4 },
+                { name: 'SB', type: 'theory', hours_per_week: 4 },
+                { name: 'BB', type: 'theory', hours_per_week: 4 },
+                { name: 'GF1', type: 'theory', hours_per_week: 4 },
+                { name: 'RK/AV', type: 'lab', hours_per_week: 2 },
+                { name: 'AV', type: 'lab', hours_per_week: 2 },
+                { name: 'GKV', type: 'lab', hours_per_week: 4 },
+                { name: 'Placement', type: 'theory', hours_per_week: 2 }
+            ];
+            renderSubjects();
+            
+            if (lecturers.length > 0) {
+                document.getElementById('lecturerNextBtn').disabled = false;
+            }
+        }
+
+        function loadSampleClasses() {
+            classes = [
+                { name: 'MCA II A', students: 60, lunch_slot: '12:00 - 01:00' },
+                { name: 'MCA II B', students: 55, lunch_slot: '12:00 - 01:00' }
+            ];
+            renderClasses();
+            
+            if (classes.length > 0) {
+                document.getElementById('classNextBtn').disabled = false;
+            }
+        }
+
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Page loaded, initializing wizard');
+            // Make sure step 1 is visible on load
+            document.getElementById('step1').style.display = 'block';
+            updateProgressBar(1);
+            renderConstraintsList();
+        });
+    </script>
+</body>
+</html>
