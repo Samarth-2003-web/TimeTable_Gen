@@ -13,6 +13,25 @@ app = Flask(__name__)
 
 # Configuration
 DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
+# CORS headers
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
+import os
+
+def debug_log(message):
+    """Write to debug log only if running locally (not on Render)"""
+    if not os.environ.get('RENDER'):
+        try:
+            with open('debug.log', 'a', encoding='utf-8') as f:
+                f.write(message + '\n')
+        except Exception:
+            pass
+
 TIME_SLOTS = [
     '09:00 - 10:00',
     '10:00 - 11:00',
