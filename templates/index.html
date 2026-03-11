@@ -151,7 +151,7 @@
                     <div class="card-header">
                         <h4 class="mb-3 text-center"><i class="bi bi-calendar3"></i> Timetable Generator - Step by Step</h4>
                         <div class="progress" style="height: 25px;">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progressBar" role="progressbar" style="width: 20%;" aria-valuenow="1" aria-valuemin="1" aria-valuemax="6">Step 1 of 6</div>
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progressBar" role="progressbar" style="width: 14.28%;" aria-valuenow="1" aria-valuemin="1" aria-valuemax="7">Step 1 of 7</div>
                         </div>
                     </div>
                 </div>
@@ -198,7 +198,7 @@
                         <div id="uploadStatus" class="mt-3"></div>
                         <div class="text-center mt-4">
                             <button class="btn btn-secondary me-2" onclick="goToStep(1)">← Back</button>
-                            <button class="btn btn-primary" onclick="goToStep(4)" id="uploadNextBtn" disabled>Next: Constraints →</button>
+                            <button class="btn btn-primary" onclick="goToStep(5)" id="uploadNextBtn" disabled>Next: Constraints →</button>
                         </div>
                     </div>
                 </div>
@@ -235,34 +235,24 @@
                         </div>
                         <div class="text-center mt-4">
                             <button class="btn btn-secondary me-2" onclick="goToStep(1)">← Back</button>
-                            <button class="btn btn-primary" onclick="goToStep(3)" id="classNextBtn" disabled>Next: Lecturers →</button>
+                            <button class="btn btn-primary" onclick="goToStep(3)" id="classNextBtn" disabled>Next: Teacher Details →</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- STEP 3: Lecturer Assignment -->
+                <!-- STEP 3: Teacher Details -->
                 <div class="card mb-4" id="step3" data-step="3" style="display: none;">
                     <div class="card-header">
-                        <h5><i class="bi bi-person-badge"></i> Step 3: Assign Lecturers</h5>
+                        <h5><i class="bi bi-person-badge"></i> Step 3: Teacher Details</h5>
                     </div>
                     <div class="card-body">
-                        <p class="text-muted">Add lecturers and assign them to classes</p>
+                        <p class="text-muted">Add lecturer names only. Hours will be assigned class-wise in the next step.</p>
                         <div class="row g-3 mb-3">
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" id="subjectName" placeholder="Lecturer Name (JP, SV, etc)">
-                            </div>
-                            <div class="col-md-2">
-                                <select class="form-select" id="subjectType">
-                                    <option value="theory">Theory</option>
-                                    <option value="lab">Lab</option>
-                                    <option value="extra">Extra-Curricular</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <input type="number" class="form-control" id="subjectHours" placeholder="Hours/Week" value="4" min="1" max="10">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="subjectName" placeholder="Teacher Name (JP, SV, etc)">
                             </div>
                             <div class="col-md-3">
-                                <button class="btn btn-success w-100" onclick="addSubject()">Add Lecturer</button>
+                                <button class="btn btn-success w-100" onclick="addSubject()">Add Teacher</button>
                             </div>
                         </div>
                         <div id="subjectsList"></div>
@@ -273,19 +263,54 @@
                         </div>
                         <div class="text-center mt-4">
                             <button class="btn btn-secondary me-2" onclick="goToStep(2)">← Back</button>
-                            <button class="btn btn-primary" onclick="goToStep(4)" id="lecturerNextBtn" disabled>Next: Constraints →</button>
+                            <button class="btn btn-primary" onclick="goToStep(4)" id="lecturerNextBtn" disabled>Next: Assign Class Hours →</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- STEP 4: Constraints -->
+                <!-- STEP 4: Class-wise Lecturer Hours -->
                 <div class="card mb-4" id="step4" data-step="4" style="display: none;">
                     <div class="card-header">
-                        <h5><i class="bi bi-sliders"></i> Step 4: Set Constraints</h5>
+                        <h5><i class="bi bi-diagram-3"></i> Step 4: Assign Lecturer to Class with Hours</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted">Choose a class and assign lecturer with weekly hours.</p>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-3">
+                                <select class="form-select" id="assignClass" onchange="updateAssignLecturerOptions()"></select>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select" id="assignLecturer"></select>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-select" id="assignType">
+                                    <option value="theory">Theory</option>
+                                    <option value="lab">Lab</option>
+                                    <option value="placement">Placement</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" class="form-control" id="assignHours" placeholder="Hours/Week" value="4" min="1" max="12">
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-success w-100" onclick="addClassAssignment()">Add Assignment</button>
+                            </div>
+                        </div>
+                        <div id="classAssignmentsList"></div>
+                        <div class="text-center mt-4">
+                            <button class="btn btn-secondary me-2" onclick="goToStep(3)">← Back</button>
+                            <button class="btn btn-primary" onclick="goToStep(5)" id="assignmentNextBtn" disabled>Next: Constraints →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 5: Constraints -->
+                <div class="card mb-4" id="step5" data-step="5" style="display: none;">
+                    <div class="card-header">
+                        <h5><i class="bi bi-sliders"></i> Step 5: Set Constraints</h5>
                     </div>
                     <div class="card-body">
                         <p class="text-muted">Configure scheduling constraints</p>
-                        
                         <div class="mb-4">
                             <h6><i class="bi bi-check2-circle"></i> Combined Classes</h6>
                             <p class="small text-muted">Lecturers teaching same class at same time</p>
@@ -345,16 +370,16 @@
                         </div>
 
                         <div class="text-center mt-4">
-                            <button class="btn btn-secondary me-2" onclick="goToStep(3)">← Back</button>
+                            <button class="btn btn-secondary me-2" onclick="goToStep(4)">← Back</button>
                             <button class="btn btn-primary" onclick="generateTimetable()">Generate Timetable →</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- STEP 5: Generated Timetable -->
-                <div class="card mb-4" id="step5" data-step="5" style="display: none;">
+                <!-- STEP 6: Generated Timetable -->
+                <div class="card mb-4" id="step6" data-step="6" style="display: none;">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0"><i class="bi bi-table"></i> Step 5: Generated Timetable</h5>
+                        <h5 class="mb-0"><i class="bi bi-table"></i> Step 6: Generated Timetable</h5>
                         <div>
                             <button class="btn btn-light btn-sm me-2" onclick="printTimetable()"><i class="bi bi-printer"></i> Print</button>
                             <button class="btn btn-light btn-sm me-2" onclick="downloadCSV()"><i class="bi bi-download"></i> CSV</button>
@@ -362,27 +387,35 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        <div class="text-center mb-3">
+                            <div class="btn-group" role="group" aria-label="Schedule View Mode">
+                                <button class="btn btn-primary btn-sm" id="classViewBtn" onclick="showClassView()">Class Schedules</button>
+                                <button class="btn btn-outline-primary btn-sm" id="lecturerViewBtn" onclick="showLecturerView()">Lecturer Schedules</button>
+                            </div>
+                        </div>
                         <div class="mb-3">
                             <div id="classTabs" class="text-center mb-3"></div>
+                            <div id="lecturerTabs" class="text-center mb-3" style="display: none;"></div>
                             <div id="timetableContainer"></div>
+                            <div id="lecturerTimetableContainer" style="display: none;"></div>
                         </div>
                         <div class="text-center mt-4">
-                            <button class="btn btn-warning me-2" onclick="goToStep(4)"><i class="bi bi-pencil"></i> Edit</button>
-                            <button class="btn btn-success" onclick="goToStep(6)"><i class="bi bi-pencil-square"></i> Next: Edit Slots →</button>
+                            <button class="btn btn-warning me-2" onclick="goToStep(5)"><i class="bi bi-pencil"></i> Edit Constraints</button>
+                            <button class="btn btn-success" onclick="openEditStep()"><i class="bi bi-pencil-square"></i> Next: Edit Slots →</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- STEP 6: Edit Mode -->
-                <div class="card mb-4" id="step6" data-step="6" style="display: none;">
+                <!-- STEP 7: Edit Mode -->
+                <div class="card mb-4" id="step7" data-step="7" style="display: none;">
                     <div class="card-header">
-                        <h5><i class="bi bi-pencil-square"></i> Step 6: Edit Slots</h5>
+                        <h5><i class="bi bi-pencil-square"></i> Step 7: Edit Slots</h5>
                     </div>
                     <div class="card-body">
                         <p class="alert alert-info"><i class="bi bi-info-circle"></i> Click on any cell to swap lecturers</p>
                         <div id="editTimetableContainer"></div>
                         <div class="text-center mt-4">
-                            <button class="btn btn-secondary me-2" onclick="goToStep(5)">← Back</button>
+                            <button class="btn btn-secondary me-2" onclick="goToStep(6)">← Back</button>
                             <button class="btn btn-success" onclick="saveAndDownload()">✓ Save & Download</button>
                         </div>
                     </div>
@@ -406,10 +439,16 @@
         // Global Data Storage
         let lecturers = [];
         let classes = [];
+        let classAssignments = [];
         let constraints = {};
         let currentTimetable = null;
         let currentStep = 1;
         let entryMethod = null;  // 'upload' or 'manual'
+        let currentViewMode = 'class';
+        let selectedClassName = null;
+        let selectedLecturerName = null;
+        let lecturerTabNames = [];
+        const REQUIRED_CLASS_HOURS = 34;
 
         // ===== STEP NAVIGATION =====
         function goToStep(stepNum) {
@@ -433,13 +472,18 @@
             // Update progress bar
             updateProgressBar(stepNum);
             currentStep = stepNum;
+
+            if (stepNum === 4) {
+                renderAssignmentSelectors();
+                renderClassAssignments();
+            }
         }
 
         function updateProgressBar(step) {
             const progressBar = document.getElementById('progressBar');
-            const percentage = (step / 6) * 100;
+            const percentage = (step / 7) * 100;
             progressBar.style.width = percentage + '%';
-            progressBar.textContent = `Step ${step} of 6`;
+            progressBar.textContent = `Step ${step} of 7`;
             progressBar.setAttribute('aria-valuenow', step);
         }
 
@@ -463,7 +507,10 @@
                 updateProgressBar(2);
                 currentStep = 2;
                 // Clear previous data
+                classAssignments = [];
                 renderClasses();
+                renderClassAssignments();
+                renderAssignmentSelectors();
             }
         }
 
@@ -479,7 +526,7 @@
                 alert('Please enter class name');
                 return;
             }
-            
+
             if (classes.some(c => c.name === name)) {
                 alert('Class name already exists');
                 return;
@@ -488,6 +535,7 @@
             classes.push({ name, students, lunch_slot: lunch });
             console.log('Classes updated:', classes);
             renderClasses();
+            renderAssignmentSelectors();
             
             // Clear form
             document.getElementById('className').value = '';
@@ -501,8 +549,14 @@
         }
 
         function removeClass(index) {
+            const removed = classes[index];
             classes.splice(index, 1);
+            if (removed) {
+                classAssignments = classAssignments.filter(a => a.class_name !== removed.name);
+            }
             renderClasses();
+            renderClassAssignments();
+            renderAssignmentSelectors();
             if (classes.length === 0) {
                 document.getElementById('classNextBtn').disabled = true;
             }
@@ -530,29 +584,26 @@
                 '</tbody></table></div>';
         }
 
-        // ===== STEP 3: LECTURERS =====
+        // ===== STEP 3: TEACHER MASTER =====
         function addSubject() {
             const name = document.getElementById('subjectName').value.trim().toUpperCase();
-            const type = document.getElementById('subjectType').value;
-            const hours = parseInt(document.getElementById('subjectHours').value) || 4;
             
             if (!name) {
-                alert('Please enter lecturer name');
+                alert('Please enter teacher name');
                 return;
             }
             
             if (lecturers.some(l => l.name === name)) {
-                alert('Lecturer already exists');
+                alert('Teacher already exists');
                 return;
             }
             
-            lecturers.push({ name, type, hours_per_week: hours });
+            lecturers.push({ name });
             renderSubjects();
+            renderAssignmentSelectors();
             
             // Clear form
             document.getElementById('subjectName').value = '';
-            document.getElementById('subjectHours').value = '4';
-            document.getElementById('subjectType').value = 'theory';
             
             // Enable Next button if at least 1 lecturer
             if (lecturers.length > 0) {
@@ -561,8 +612,14 @@
         }
 
         function removeSubject(index) {
+            const removed = lecturers[index];
             lecturers.splice(index, 1);
+            if (removed) {
+                classAssignments = classAssignments.filter(a => a.lecturer_name !== removed.name);
+            }
             renderSubjects();
+            renderClassAssignments();
+            renderAssignmentSelectors();
             if (lecturers.length === 0) {
                 document.getElementById('lecturerNextBtn').disabled = true;
             }
@@ -571,7 +628,7 @@
         function renderSubjects() {
             const container = document.getElementById('subjectsList');
             if (lecturers.length === 0) {
-                container.innerHTML = '<p class="text-muted"><i class="bi bi-info-circle"></i> No lecturers added yet</p>';
+                container.innerHTML = '<p class="text-muted"><i class="bi bi-info-circle"></i> No teachers added yet</p>';
                 return;
             }
             
@@ -583,8 +640,6 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <strong>${l.name}</strong>
-                                        <span class="badge bg-${l.type === 'lab' ? 'danger' : 'primary'} ms-2">${l.type.toUpperCase()}</span>
-                                        <br><small class="text-muted"><i class="bi bi-clock"></i> ${l.hours_per_week} hrs/week</small>
                                     </div>
                                     <button class="btn btn-sm btn-outline-danger" onclick="removeSubject(${i})"><i class="bi bi-trash"></i></button>
                                 </div>
@@ -593,6 +648,136 @@
                     </div>
                 `).join('') +
                 '</div>';
+        }
+
+        // ===== STEP 4: CLASS-WISE ASSIGNMENTS =====
+        function renderAssignmentSelectors() {
+            const classSelect = document.getElementById('assignClass');
+            const teacherSelect = document.getElementById('assignLecturer');
+            if (!classSelect || !teacherSelect) return;
+
+            if (classes.length === 0) {
+                classSelect.innerHTML = '<option value="">Add classes first</option>';
+                teacherSelect.innerHTML = '<option value="">Add teachers first</option>';
+                return;
+            }
+
+            classSelect.innerHTML = '<option value="">Select class...</option>' +
+                classes.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+
+            const selectedClassName = classSelect.value || classes[0].name;
+            classSelect.value = selectedClassName;
+            updateAssignLecturerOptions();
+        }
+
+        function updateAssignLecturerOptions() {
+            const teacherSelect = document.getElementById('assignLecturer');
+            if (!teacherSelect) return;
+
+            if (lecturers.length === 0) {
+                teacherSelect.innerHTML = '<option value="">No lecturers available</option>';
+                return;
+            }
+
+            teacherSelect.innerHTML = '<option value="">Select teacher...</option>' +
+                lecturers.map(t => `<option value="${t.name}">${t.name}</option>`).join('');
+        }
+
+        function addClassAssignment() {
+            const className = document.getElementById('assignClass').value;
+            const lecturerName = document.getElementById('assignLecturer').value;
+            const assignType = document.getElementById('assignType').value || 'theory';
+            const hours = parseInt(document.getElementById('assignHours').value) || 0;
+
+            if (!className || !lecturerName) {
+                alert('Please select class and teacher');
+                return;
+            }
+            if (hours <= 0) {
+                alert('Please enter valid hours/week');
+                return;
+            }
+
+            const classData = classes.find(c => c.name === className);
+            const lecturerData = lecturers.find(l => l.name === lecturerName);
+            if (!classData || !lecturerData) {
+                alert('Invalid class or teacher selection');
+                return;
+            }
+
+            const existing = classAssignments.find(
+                a => a.class_name === className && a.lecturer_name === lecturerName && (a.type || 'theory') === assignType
+            );
+            if (existing) {
+                existing.hours_per_week = hours;
+                existing.type = assignType;
+            } else {
+                classAssignments.push({
+                    class_name: className,
+                    lecturer_name: lecturerName,
+                    type: assignType,
+                    hours_per_week: hours
+                });
+            }
+
+            renderClassAssignments();
+            document.getElementById('assignHours').value = '4';
+        }
+
+        function removeClassAssignment(index) {
+            classAssignments.splice(index, 1);
+            renderClassAssignments();
+        }
+
+        function renderClassAssignments() {
+            const container = document.getElementById('classAssignmentsList');
+            if (!container) return;
+
+            if (classAssignments.length === 0) {
+                container.innerHTML = '<p class="text-muted"><i class="bi bi-info-circle"></i> No class-wise assignments added yet</p>';
+                const btn = document.getElementById('assignmentNextBtn');
+                if (btn) btn.disabled = true;
+                return;
+            }
+
+            const classHourTotals = {};
+            classes.forEach(c => {
+                classHourTotals[c.name] = 0;
+            });
+            classAssignments.forEach(a => {
+                if (classHourTotals[a.class_name] === undefined) {
+                    classHourTotals[a.class_name] = 0;
+                }
+                classHourTotals[a.class_name] += (parseInt(a.hours_per_week) || 0);
+            });
+
+            container.innerHTML = '<div class="table-responsive">' +
+                '<table class="table table-sm table-hover">' +
+                '<thead><tr><th>Class</th><th>Teacher</th><th>Type</th><th>Hours/Week</th><th>Action</th></tr></thead>' +
+                '<tbody>' +
+                classAssignments.map((a, i) => `
+                    <tr>
+                        <td><strong>${a.class_name}</strong></td>
+                        <td>${a.lecturer_name}</td>
+                        <td><span class="badge bg-${a.type === 'lab' ? 'danger' : (a.type === 'placement' ? 'success' : 'primary')}">${(a.type || 'theory').toUpperCase()}</span></td>
+                        <td>${a.hours_per_week}</td>
+                        <td><button class="btn btn-sm btn-danger" onclick="removeClassAssignment(${i})"><i class="bi bi-trash"></i></button></td>
+                    </tr>
+                `).join('') +
+                '</tbody></table></div>';
+
+            const classSummary = classes.map(c => {
+                const total = classHourTotals[c.name] || 0;
+                const ok = total === REQUIRED_CLASS_HOURS;
+                const badgeClass = ok ? 'bg-success' : (total < REQUIRED_CLASS_HOURS ? 'bg-warning text-dark' : 'bg-danger');
+                return `<span class="badge ${badgeClass} me-2 mb-2">${c.name}: ${total}/${REQUIRED_CLASS_HOURS} hrs</span>`;
+            }).join('');
+
+            container.innerHTML += `<div class="mt-2"><small class="text-muted">Each class must have exactly ${REQUIRED_CLASS_HOURS} hours.</small><div class="mt-2">${classSummary}</div></div>`;
+
+            const allClassesHave34Hours = classes.length > 0 && classes.every(c => (classHourTotals[c.name] || 0) === REQUIRED_CLASS_HOURS);
+            const btn = document.getElementById('assignmentNextBtn');
+            if (btn) btn.disabled = !allClassesHave34Hours;
         }
 
         // ===== STEP 4: CONSTRAINTS =====
@@ -626,10 +811,11 @@
             if (constraints.combined_classes && constraints.combined_classes.length > 0) {
                 html += '<div class="mt-3"><strong>Combined Classes:</strong>';
                 constraints.combined_classes.forEach((cc, i) => {
+                    const lecturerLabel = lecturers[cc.lecturer_idx] ? lecturers[cc.lecturer_idx].name : 'Unknown Teacher';
                     html += `
                         <div class="alert alert-success py-2 px-3 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span><strong>${lecturers[cc.lecturer_idx].name}</strong> teaches: ${cc.classes.join(', ')}</span>
+                                <span><strong>${lecturerLabel}</strong> teaches: ${cc.classes.join(', ')}</span>
                                 <button class="btn btn-sm btn-outline-danger" onclick="removeCombinedClass(${i})">×</button>
                             </div>
                         </div>
@@ -671,11 +857,47 @@
             renderConstraintsList();
         }
 
-        // ===== STEP 5 & 6: TIMETABLE DISPLAY & EDIT =====
+        // ===== STEP 6 & 7: TIMETABLE DISPLAY & EDIT =====
         async function generateTimetable() {
-            if (lecturers.length === 0 || classes.length === 0) {
-                alert('Please add at least one lecturer and one class');
+            if (classes.length === 0) {
+                alert('Please add at least one class');
                 return;
+            }
+
+            if (entryMethod === 'manual') {
+                if (lecturers.length === 0) {
+                    alert('Please add teacher details first');
+                    return;
+                }
+
+                const classesWithoutAssignments = classes
+                    .filter(c => !classAssignments.some(a => a.class_name === c.name))
+                    .map(c => c.name);
+
+                if (classesWithoutAssignments.length > 0) {
+                    alert(`Please assign lecturer hours for all classes. Missing: ${classesWithoutAssignments.join(', ')}`);
+                    return;
+                }
+
+                const classHourTotals = {};
+                classes.forEach(c => {
+                    classHourTotals[c.name] = 0;
+                });
+                classAssignments.forEach(a => {
+                    if (classHourTotals[a.class_name] === undefined) {
+                        classHourTotals[a.class_name] = 0;
+                    }
+                    classHourTotals[a.class_name] += (parseInt(a.hours_per_week) || 0);
+                });
+
+                const invalidClasses = classes
+                    .filter(c => (classHourTotals[c.name] || 0) !== REQUIRED_CLASS_HOURS)
+                    .map(c => `${c.name} (${classHourTotals[c.name] || 0}/${REQUIRED_CLASS_HOURS})`);
+
+                if (invalidClasses.length > 0) {
+                    alert(`Each class must have exactly ${REQUIRED_CLASS_HOURS} hours. Please fix: ${invalidClasses.join(', ')}`);
+                    return;
+                }
             }
 
             // Collect all checkbox-based constraints before sending.
@@ -698,6 +920,7 @@
                     body: JSON.stringify({
                         lecturers: lecturers,
                         classes: classes,
+                        classAssignments: classAssignments,
                         constraints: constraints
                     })
                 });
@@ -707,7 +930,7 @@
                 if (data.success) {
                     currentTimetable = data;
                     displayTimetable(data);
-                    goToStep(5);
+                    goToStep(6);
                 } else {
                     alert(data.error || 'Failed to generate timetable');
                 }
@@ -723,17 +946,209 @@
             tabsContainer.innerHTML = data.classes.map((cls, i) => 
                 `<button class="btn ${i === 0 ? 'btn-primary' : 'btn-outline-primary'} btn-sm me-2 class-tab" data-class="${cls}" onclick="switchClass(this, '${cls}')">${cls}</button>`
             ).join('');
-            
-            renderTable(data, data.classes[0]);
+
+            currentViewMode = 'class';
+            selectedClassName = data.classes[0] || null;
+            renderLecturerTabs(data);
+            showClassView();
         }
 
         function switchClass(btn, className) {
+            currentViewMode = 'class';
+            selectedClassName = className;
             document.querySelectorAll('.class-tab').forEach(b => b.classList.remove('btn-primary'));
             document.querySelectorAll('.class-tab').forEach(b => b.classList.add('btn-outline-primary'));
             btn.classList.remove('btn-outline-primary');
             btn.classList.add('btn-primary');
-            
+
+            updateViewButtons();
             renderTable(currentTimetable, className);
+        }
+
+        function getAllLecturerNames(data) {
+            const names = new Set();
+
+            (lecturers || []).forEach(l => {
+                if (l && l.name) names.add(l.name);
+            });
+
+            if (!data || !data.timetable) {
+                return Array.from(names).sort();
+            }
+
+            Object.keys(data.timetable).forEach(cls => {
+                const schedule = data.timetable[cls] || {};
+                data.days.forEach(day => {
+                    data.timeSlots.forEach(slot => {
+                        const cell = schedule[day]?.[slot];
+                        if (!cell) return;
+                        if (cell.lecturer && !['LUNCH', 'Free', 'OFF'].includes(cell.lecturer)) {
+                            names.add(cell.lecturer);
+                        }
+                    });
+                });
+            });
+
+            return Array.from(names).sort();
+        }
+
+        function renderLecturerTabs(data) {
+            const lecturerTabs = document.getElementById('lecturerTabs');
+            if (!lecturerTabs) return;
+
+            const lecturerNames = getAllLecturerNames(data);
+            lecturerTabNames = lecturerNames.slice();
+            if (lecturerNames.length === 0) {
+                lecturerTabs.innerHTML = '<p class="text-muted">No lecturer schedules available</p>';
+                selectedLecturerName = null;
+                return;
+            }
+
+            if (!selectedLecturerName || !lecturerNames.includes(selectedLecturerName)) {
+                selectedLecturerName = lecturerNames[0];
+            }
+
+            lecturerTabs.innerHTML = lecturerNames.map((name, idx) => {
+                const isActive = name === selectedLecturerName;
+                return `<button class="btn ${isActive ? 'btn-primary' : 'btn-outline-primary'} btn-sm me-2 lecturer-tab" onclick="switchLecturerByIndex(this, ${idx})">${name}</button>`;
+            }).join('');
+        }
+
+        function switchLecturerByIndex(btn, lecturerIdx) {
+            const lecturerName = lecturerTabNames[lecturerIdx];
+            if (!lecturerName) return;
+            currentViewMode = 'lecturer';
+            selectedLecturerName = lecturerName;
+
+            document.querySelectorAll('.lecturer-tab').forEach(b => b.classList.remove('btn-primary'));
+            document.querySelectorAll('.lecturer-tab').forEach(b => b.classList.add('btn-outline-primary'));
+            btn.classList.remove('btn-outline-primary');
+            btn.classList.add('btn-primary');
+
+            updateViewButtons();
+            renderLecturerTable(currentTimetable, lecturerName);
+        }
+
+        function updateViewButtons() {
+            const classViewBtn = document.getElementById('classViewBtn');
+            const lecturerViewBtn = document.getElementById('lecturerViewBtn');
+            if (!classViewBtn || !lecturerViewBtn) return;
+
+            if (currentViewMode === 'lecturer') {
+                classViewBtn.className = 'btn btn-outline-primary btn-sm';
+                lecturerViewBtn.className = 'btn btn-primary btn-sm';
+            } else {
+                classViewBtn.className = 'btn btn-primary btn-sm';
+                lecturerViewBtn.className = 'btn btn-outline-primary btn-sm';
+            }
+        }
+
+        function showClassView() {
+            if (!currentTimetable) return;
+
+            currentViewMode = 'class';
+            updateViewButtons();
+
+            document.getElementById('classTabs').style.display = 'block';
+            document.getElementById('lecturerTabs').style.display = 'none';
+            document.getElementById('timetableContainer').style.display = 'block';
+            document.getElementById('lecturerTimetableContainer').style.display = 'none';
+
+            if (!selectedClassName || !currentTimetable.classes.includes(selectedClassName)) {
+                selectedClassName = currentTimetable.classes[0] || null;
+            }
+
+            if (selectedClassName) {
+                renderTable(currentTimetable, selectedClassName);
+                document.querySelectorAll('.class-tab').forEach(btn => {
+                    const isSelected = btn.getAttribute('data-class') === selectedClassName;
+                    btn.classList.toggle('btn-primary', isSelected);
+                    btn.classList.toggle('btn-outline-primary', !isSelected);
+                });
+            }
+        }
+
+        function showLecturerView() {
+            if (!currentTimetable) return;
+
+            currentViewMode = 'lecturer';
+            updateViewButtons();
+
+            document.getElementById('classTabs').style.display = 'none';
+            document.getElementById('lecturerTabs').style.display = 'block';
+            document.getElementById('timetableContainer').style.display = 'none';
+            document.getElementById('lecturerTimetableContainer').style.display = 'block';
+
+            renderLecturerTabs(currentTimetable);
+            if (selectedLecturerName) {
+                renderLecturerTable(currentTimetable, selectedLecturerName);
+            }
+        }
+
+        function renderLecturerTable(data, lecturerName) {
+            if (!lecturerName) {
+                document.getElementById('lecturerTimetableContainer').innerHTML = '<p class="text-muted">No lecturer selected.</p>';
+                return;
+            }
+
+            let html = `
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4>${lecturerName.toUpperCase()}</h4>
+                        <small class="text-muted">Lecturer Schedule</small>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-sm">
+                                <thead>
+                                    <tr>
+                                        <th style="background: #e3f2fd; width: 100px;">DAY</th>
+            `;
+
+            data.timeSlots.forEach(slot => {
+                html += `<th style="background: #fff3cd; font-size: 0.85rem;">${slot}</th>`;
+            });
+            html += '</tr></thead><tbody>';
+
+            data.days.forEach(day => {
+                html += `<tr><th style="background: #e3f2fd;">${day.toUpperCase()}</th>`;
+
+                data.timeSlots.forEach(slot => {
+                    const matches = [];
+                    data.classes.forEach(cls => {
+                        const cell = data.timetable[cls]?.[day]?.[slot];
+                        if (cell && cell.lecturer === lecturerName && !['break', 'off'].includes((cell.type || '').toLowerCase())) {
+                            matches.push({ cls, type: cell.type || 'theory' });
+                        }
+                    });
+
+                    let cellClass = 'cell-free';
+                    let content = '-';
+                    if (matches.length > 0) {
+                        const hasLab = matches.some(m => (m.type || '').toLowerCase() === 'lab');
+                        const hasPlacement = matches.some(m => (m.type || '').toLowerCase() === 'placement');
+                        cellClass = hasLab ? 'table-danger' : (hasPlacement ? 'table-success' : 'table-primary');
+                        content = matches.map(m => {
+                            const typeLabel = (m.type || 'theory').toUpperCase();
+                            return `<div><strong>${m.cls}</strong><br><small>${typeLabel}</small></div>`;
+                        }).join('<hr class="my-1">');
+                    }
+
+                    html += `<td class="${cellClass} text-center font-monospace" style="font-size: 0.85rem;">${content}</td>`;
+                });
+
+                html += '</tr>';
+            });
+
+            html += '</tbody></table></div></div></div>';
+            document.getElementById('lecturerTimetableContainer').innerHTML = html;
+        }
+
+        function openEditStep() {
+            if (currentViewMode === 'lecturer') {
+                showClassView();
+            }
+            goToStep(7);
         }
 
         function renderTable(data, className) {
@@ -957,7 +1372,7 @@
                 
                 if (lecturerData) {
                     currentCell.lecturer = upperLecturer;
-                    currentCell.type = lecturerData.type;
+                    currentCell.type = lecturerData.type || currentCell.type || 'theory';
                     renderTable(currentTimetable, className);
                 } else {
                     alert('Lecturer not found');
@@ -1193,17 +1608,18 @@
         // ===== SAMPLE DATA LOADING =====
         function loadSampleLecturers() {
             lecturers = [
-                { name: 'JP', type: 'theory', hours_per_week: 4 },
-                { name: 'SV', type: 'theory', hours_per_week: 4 },
-                { name: 'SB', type: 'theory', hours_per_week: 4 },
-                { name: 'BB', type: 'theory', hours_per_week: 4 },
-                { name: 'GF1', type: 'theory', hours_per_week: 4 },
-                { name: 'RK/AV', type: 'lab', hours_per_week: 2 },
-                { name: 'AV', type: 'lab', hours_per_week: 2 },
-                { name: 'GKV', type: 'lab', hours_per_week: 4 },
-                { name: 'Placement', type: 'theory', hours_per_week: 2 }
+                { name: 'JP' },
+                { name: 'SV' },
+                { name: 'SB' },
+                { name: 'BB' },
+                { name: 'GF1' },
+                { name: 'RK/AV' },
+                { name: 'AV' },
+                { name: 'GKV' },
+                { name: 'PLACEMENT' }
             ];
             renderSubjects();
+            renderAssignmentSelectors();
             
             if (lecturers.length > 0) {
                 document.getElementById('lecturerNextBtn').disabled = false;
@@ -1213,9 +1629,12 @@
         function loadSampleClasses() {
             classes = [
                 { name: 'MCA II A', students: 60, lunch_slot: '12:00 - 01:00' },
-                { name: 'MCA II B', students: 55, lunch_slot: '12:00 - 01:00' }
+                { name: 'MCA II B', students: 55, lunch_slot: '12:00 - 01:00' },
+                { name: 'MCA I A', students: 62, lunch_slot: '01:00 - 02:00' }
             ];
             renderClasses();
+            renderAssignmentSelectors();
+            renderClassAssignments();
             
             if (classes.length > 0) {
                 document.getElementById('classNextBtn').disabled = false;
@@ -1229,6 +1648,8 @@
             document.getElementById('step1').style.display = 'block';
             updateProgressBar(1);
             renderConstraintsList();
+            renderAssignmentSelectors();
+            renderClassAssignments();
         });
     </script>
 </body>

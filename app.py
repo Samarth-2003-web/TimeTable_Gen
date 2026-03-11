@@ -43,19 +43,27 @@ TIME_SLOTS = [
 ]
 # Lunch slot options - classes can have lunch in different slots
 LUNCH_OPTIONS = ['12:00 - 01:00', '01:00 - 02:00']
+REQUIRED_CLASS_HOURS = 34
 
 
 class GeneticTimetableGenerator:
-    def __init__(self, lecturers, classes, constraints, class_info=None, 
+    def __init__(self, lecturers, classes, constraints, class_info=None, class_lecturers=None,
                  population_size=50, generations=100, mutation_rate=0.15):
         self.lecturers = lecturers  # List of {name, hours_per_week, type}
         self.classes = classes
         self.constraints = constraints
         self.class_info = class_info or {}
+        self.class_lecturers = class_lecturers or {}
         
         self.population_size = population_size
         self.generations = generations
         self.mutation_rate = mutation_rate
+
+    def get_lecturers_for_class(self, cls):
+        """Return class-specific lecturer-hour definitions, falling back to global list."""
+        if cls in self.class_lecturers and self.class_lecturers[cls]:
+            return self.class_lecturers[cls]
+        return self.lecturers
 
     def _is_teaching_cell(self, cell):
         """Return True when a cell represents an actual teaching slot."""
@@ -183,10 +191,10 @@ class GeneticTimetableGenerator:
                     gaps += 1
         return gaps
 
-    def _count_workload_distribution_violations(self, schedule):
+    def _count_workload_distribution_violations(self, schedule, lecturers_for_class):
         """Count penalties for lecturers packed into too few days or overloaded single days."""
         penalties = 0
-        for lecturer in self.lecturers:
+        for lecturer in lecturers_for_class:
             lecturer_name = lecturer['name']
             day_counts = []
             total = 0
@@ -214,13 +222,13 @@ class GeneticTimetableGenerator:
 
         return penalties
 
-    def _count_time_of_day_balance_violations(self, schedule):
+    def _count_time_of_day_balance_violations(self, schedule, lecturers_for_class):
         """Penalize lecturers repeatedly fixed to morning or first afternoon slot across days."""
         penalties = 0
         morning_indices = {0, 1, 2}  # 09:00-12:00
         first_afternoon_idx = 4      # 01:00-02:00
 
-        for lecturer in self.lecturers:
+        for lecturer in lecturers_for_class:
             lecturer_name = lecturer['name']
             teaching_days = 0
             morning_days = 0
@@ -304,13 +312,19 @@ class GeneticTimetableGenerator:
                 schedule[day][lunch_slot] = {'lecturer': 'LUNCH', 'type': 'break'}
         
         # Shuffle lecturers for randomness
-        lecturers_copy = deepcopy(self.lecturers)
+        lecturers_copy = deepcopy(self.get_lecturers_for_class(cls))
         random.shuffle(lecturers_copy)
         
+        # Track remaining hours so we can deterministically fill leftovers later.
+        remaining_hours = {}
+        lecturer_type_map = {}
+
         # Place each lecturer's hours
         for lecturer in lecturers_copy:
             lecturer_name = lecturer['name']
             hours_needed = lecturer['hours_per_week']
+            remaining_hours[lecturer_name] = hours_needed
+            lecturer_type_map[lecturer_name] = lecturer.get('type', 'theory')
             # Labs and extra-curricular with 2+ hours need 2 continuous slots
             lecturer_type = lecturer.get('type', 'theory')
             duration = 2 if lecturer_type in ['lab', 'extra'] and hours_needed >= 2 else 1
@@ -360,8 +374,44 @@ class GeneticTimetableGenerator:
                         slot = TIME_SLOTS[slot_idx + i]
                         schedule[day][slot] = {'lecturer': lecturer_name, 'type': lecturer.get('type', 'theory')}
                     hours_placed += duration
+                    remaining_hours[lecturer_name] = max(0, remaining_hours.get(lecturer_name, 0) - duration)
                 
                 attempts += 1
+
+        # Deterministic fallback fill: if random placement misses slots, fill remaining hours
+        # so that classes with fully-covered weekly hours do not end with unnecessary free periods.
+        def choose_lecturer_for_slot(day, slot_idx):
+            candidates = [name for name, left in remaining_hours.items() if left > 0]
+            if not candidates:
+                return None
+
+            # Prefer heavier remaining load first.
+            candidates.sort(key=lambda n: remaining_hours[n], reverse=True)
+
+            if self._requires_break_after_two_consecutive():
+                for name in candidates:
+                    if not self._violates_break_after_two_consecutive(schedule, day, slot_idx, 1, name):
+                        return name
+
+            return candidates[0]
+
+        for day in DAYS:
+            for idx, slot in enumerate(TIME_SLOTS):
+                # Saturday only has 4 teaching slots.
+                if day == 'Saturday' and idx >= 4:
+                    continue
+                # Lunch is fixed only on Monday-Friday.
+                if day != 'Saturday' and slot == lunch_slot:
+                    continue
+                if schedule[day][slot] is not None:
+                    continue
+
+                pick = choose_lecturer_for_slot(day, idx)
+                if not pick:
+                    continue
+
+                schedule[day][slot] = {'lecturer': pick, 'type': lecturer_type_map.get(pick, 'theory')}
+                remaining_hours[pick] = max(0, remaining_hours.get(pick, 0) - 1)
         
         # Fill remaining free periods
         for day in DAYS:
@@ -388,6 +438,7 @@ class GeneticTimetableGenerator:
         
         for cls in self.classes:
             schedule = individual[cls]
+            lecturers_for_class = self.get_lecturers_for_class(cls)
             
             # 1. Count lecturers scheduled
             lecturers_placed = {}
@@ -399,7 +450,7 @@ class GeneticTimetableGenerator:
                         lecturers_placed[lecturer] = lecturers_placed.get(lecturer, 0) + 1
             
             # 2. Bonus for meeting hour requirements for each lecturer
-            for lecturer in self.lecturers:
+            for lecturer in lecturers_for_class:
                 lecturer_name = lecturer['name']
                 if lecturer_name in lecturers_placed:
                     hours_placed = lecturers_placed[lecturer_name]
@@ -445,12 +496,12 @@ class GeneticTimetableGenerator:
 
             # 9. Penalty for uneven lecturer workload distribution
             if self._requires_workload_distribution():
-                violations = self._count_workload_distribution_violations(schedule)
+                violations = self._count_workload_distribution_violations(schedule, lecturers_for_class)
                 penalty += violations * 8
 
             # 10. Penalty for repetitive day-part allocation per lecturer
             if self._requires_time_of_day_balance():
-                violations = self._count_time_of_day_balance_violations(schedule)
+                violations = self._count_time_of_day_balance_violations(schedule, lecturers_for_class)
                 penalty += violations * 10
         
         return fitness - penalty
@@ -598,10 +649,11 @@ def generate():
         # Handle both 'lecturers' (new wizard) and 'subjects' (old UI) keys
         lecturers = data.get('lecturers', data.get('subjects', []))
         classes_data = data.get('classes', [])
+        class_assignments = data.get('classAssignments', [])
         constraints = data.get('constraints', {})
         
-        if not lecturers or not classes_data:
-            return jsonify({'error': 'Please provide lecturers and classes'}), 400
+        if not classes_data:
+            return jsonify({'error': 'Please provide classes'}), 400
         
         # Handle classes - could be strings or objects
         class_names = []
@@ -615,8 +667,53 @@ def generate():
                     class_names.append(name)
                     class_info[name] = {
                         'lunch_slot': cls.get('lunch_slot', ''),
-                        'size': cls.get('students', cls.get('size', 60))
+                        'size': cls.get('students', cls.get('size', 60)),
+                        'academic_year': cls.get('academic_year', '')
                     }
+
+        # Build class-wise lecturer allocations when provided by the wizard.
+        class_lecturers = {}
+        if class_assignments:
+            for assignment in class_assignments:
+                class_name = assignment.get('class_name', '').strip()
+                lecturer_name = assignment.get('lecturer_name', '').strip().upper()
+                if not class_name or not lecturer_name:
+                    continue
+
+                try:
+                    hours = int(assignment.get('hours_per_week', 0))
+                except Exception:
+                    hours = 0
+
+                if hours <= 0:
+                    continue
+
+                lecturer_type = assignment.get('type', 'theory')
+                class_lecturers.setdefault(class_name, []).append({
+                    'name': lecturer_name,
+                    'hours_per_week': hours,
+                    'type': lecturer_type
+                })
+
+        if class_lecturers:
+            missing = [name for name in class_names if not class_lecturers.get(name)]
+            if missing:
+                return jsonify({
+                    'error': f"Please assign lecturer hours for all classes. Missing: {', '.join(missing)}"
+                }), 400
+
+            invalid_totals = []
+            for class_name in class_names:
+                total_hours = sum(int(item.get('hours_per_week', 0)) for item in class_lecturers.get(class_name, []))
+                if total_hours != REQUIRED_CLASS_HOURS:
+                    invalid_totals.append(f"{class_name} ({total_hours}/{REQUIRED_CLASS_HOURS})")
+
+            if invalid_totals:
+                return jsonify({
+                    'error': f"Each class must have exactly {REQUIRED_CLASS_HOURS} hours. Please fix: {', '.join(invalid_totals)}"
+                }), 400
+        elif not lecturers:
+            return jsonify({'error': 'Please provide lecturer details'}), 400
         
         # Use Genetic Algorithm
         generator = GeneticTimetableGenerator(
@@ -624,6 +721,7 @@ def generate():
             class_names, 
             constraints, 
             class_info,
+            class_lecturers,
             population_size=50,
             generations=100,
             mutation_rate=0.15
