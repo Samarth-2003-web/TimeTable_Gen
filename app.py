@@ -48,7 +48,13 @@ REQUIRED_CLASS_HOURS = 34
 
 class GeneticTimetableGenerator:
     def __init__(self, lecturers, classes, constraints, class_info=None, class_lecturers=None,
-                 population_size=50, generations=100, mutation_rate=0.15):
+                 population_size=None, generations=None, mutation_rate=0.15):
+        # Use smaller defaults on Render to avoid request timeout
+        is_render = bool(os.environ.get('RENDER'))
+        if population_size is None:
+            population_size = 20 if is_render else 50
+        if generations is None:
+            generations = 50 if is_render else 100
         self.lecturers = lecturers  # List of {name, hours_per_week, type}
         self.classes = classes
         self.constraints = constraints
@@ -546,16 +552,16 @@ class GeneticTimetableGenerator:
     def generate(self):
         """Run genetic algorithm to generate timetable"""
         print(f"Starting Genetic Algorithm: population={self.population_size}, generations={self.generations}")
-        
-        with open('debug.log', 'a', encoding='utf-8') as f:
-            f.write(f"\n=== GA STARTING ===\n")
-            f.write(f"Population: {self.population_size}, Generations: {self.generations}\n")
+        debug_log(f"\n=== GA STARTING ===")
+        debug_log(f"Population: {self.population_size}, Generations: {self.generations}")
         
         # Step 1: Create initial population
         population = [self.create_individual() for _ in range(self.population_size)]
         
         best_individual = None
         best_fitness = -float('inf')
+        no_improvement = 0
+        EARLY_STOP = 15  # stop if no improvement for 15 consecutive generations
         
         # Step 2: Evolution loop
         for generation in range(self.generations):
@@ -569,11 +575,16 @@ class GeneticTimetableGenerator:
             if max_fitness > best_fitness:
                 best_fitness = max_fitness
                 best_individual = deepcopy(population[max_idx])
+                no_improvement = 0
+            else:
+                no_improvement += 1
+                if no_improvement >= EARLY_STOP:
+                    print(f"Early stopping at generation {generation} (no improvement for {EARLY_STOP} gens)")
+                    break
             
             if generation % 10 == 0:
                 print(f"Generation {generation}: Best Fitness = {best_fitness:.2f}")
-                with open('debug.log', 'a', encoding='utf-8') as f:
-                    f.write(f"Generation {generation}: Fitness = {best_fitness:.2f}\n")
+                debug_log(f"Generation {generation}: Fitness = {best_fitness:.2f}")
             
             # Step 3: Selection (tournament selection)
             new_population = []
@@ -613,8 +624,7 @@ class GeneticTimetableGenerator:
             population = next_population[:self.population_size]
         
         print(f"\nBest Solution Found - Fitness: {best_fitness:.2f}")
-        with open('debug.log', 'a', encoding='utf-8') as f:
-            f.write(f"GA Complete - Best Fitness: {best_fitness:.2f}\n")
+        debug_log(f"GA Complete - Best Fitness: {best_fitness:.2f}")
         
         return self.format_timetable(best_individual)
     
@@ -722,8 +732,6 @@ def generate():
             constraints, 
             class_info,
             class_lecturers,
-            population_size=50,
-            generations=100,
             mutation_rate=0.15
         )
         timetable = generator.generate()
